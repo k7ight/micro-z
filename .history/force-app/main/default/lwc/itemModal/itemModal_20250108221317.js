@@ -28,6 +28,8 @@ export default class ItemModal extends LightningModal {
                 })
             );
     
+            // アイテムリストのリフレッシュ（@wireの結果をリフレッシュ）
+
             // モーダルを閉じる処理
             this.close();
         } catch (error) {

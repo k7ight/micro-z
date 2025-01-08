@@ -5,6 +5,7 @@ import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 export default class ItemModal extends LightningModal {
     @api item;
+    @api itemList;
 
     handleEditItem() {
         const recordId = this.item.Id;
@@ -28,6 +29,9 @@ export default class ItemModal extends LightningModal {
                 })
             );
     
+            // アイテムリストのリフレッシュ（@wireの結果をリフレッシュ）
+            await refreshApex(this.wiredAccountsResult);
+    
             // モーダルを閉じる処理
             this.close();
         } catch (error) {
@@ -35,7 +39,7 @@ export default class ItemModal extends LightningModal {
             this.dispatchEvent(
                 new ShowToastEvent({
                     title: 'Error',
-                    message: 'アイテムの削除に失敗しました\n' + error.body.message,
+                    message: 'アイテムが削除できませんでした\n' + error.body.message,
                     variant: 'error'
                 })
             );
