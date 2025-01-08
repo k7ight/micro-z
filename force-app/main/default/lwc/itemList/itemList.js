@@ -52,10 +52,10 @@ export default class ItemList extends LightningElement {
     }
 
     handleCreateItem() {
-        const flowApiName = 'MZ_FL_CreateItem'; // フローのAPI名を指定
-        const retUrl = 'lightning/n/Tab'; // フロー終了後の遷移先URL
-        const flowUrl = `/flow/${flowApiName}?retURL=${retUrl}`; // フローのURLを構築
-        window.location.href = flowUrl; // 画面遷移
+        const flowApiName = 'MZ_FL_CreateItem';
+        const retUrl = 'lightning/n/Tab';
+        const flowUrl = `/flow/${flowApiName}?retURL=${retUrl}`; 
+        window.location.href = flowUrl;
     }
 
 }

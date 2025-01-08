@@ -19,7 +19,6 @@ export default class ItemModal extends LightningModal {
         try {
             await deleteRecord(recordId);
     
-            // 削除成功時のトースト通知
             this.dispatchEvent(
                 new ShowToastEvent({
                     title: 'Success',
@@ -27,11 +26,12 @@ export default class ItemModal extends LightningModal {
                     variant: 'success'
                 })
             );
-    
-            // モーダルを閉じる処理
+
             this.close();
+            setTimeout(() => { window.location.href = retUrl; }, 1000);
+
         } catch (error) {
-            // 削除失敗時のエラートースト通知
+
             this.dispatchEvent(
                 new ShowToastEvent({
                     title: 'Error',
