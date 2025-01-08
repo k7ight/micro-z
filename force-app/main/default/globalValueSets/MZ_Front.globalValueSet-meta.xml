@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>ボタン</fullName>
+        <default>false</default>
+        <label>ボタン</label>
+    </customValue>
+    <customValue>
+        <fullName>ジップ</fullName>
+        <default>false</default>
+        <label>ジップ</label>
+    </customValue>
+    <customValue>
+        <fullName>プルオーバー</fullName>
+        <default>false</default>
+        <label>プルオーバー</label>
+    </customValue>
+    <customValue>
+        <fullName>ボタンレス</fullName>
+        <default>false</default>
+        <label>ボタンレス</label>
+    </customValue>
+    <masterLabel>フロント</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

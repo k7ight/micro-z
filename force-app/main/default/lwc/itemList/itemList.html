@@ -1,0 +1,33 @@
+<template>
+    <lightning-layout multiple-rows="true">
+        <lightning-layout-item padding="around-small" size="12" medium-device-size="5" large-device-size="3">
+            <c-filter-item onfilterset={handleFilterSet} onfilterclear={handleFilterClear}></c-filter-item>
+        </lightning-layout-item>
+        <lightning-layout-item padding="around-small" size="12" medium-device-size="7" large-device-size="9">
+            <lightning-card title="アイテム一覧" icon-name="utility:apps">
+                <lightning-layout multiple-rows="true" vertical-align="end">
+                    <lightning-layout-item padding="around-small" size="12" small-device-size="6" large-device-size="3">
+                        <div style="text-align: left;">
+                            <lightning-combobox name="sortKey" label="ソート順" value="" placeholder="ソート順を指定">
+                            </lightning-combobox>
+                        </div>
+                    </lightning-layout-item>
+                    <lightning-layout-item padding="around-small" size="12" small-device-size="6" large-device-size="9">
+                        <div style="text-align: right;">
+                            <lightning-button variant="brand" label="アイテム登録" icon-name="utility:add" 
+                                onclick={handleCreateItem}>
+                            </lightning-button>
+                        </div>
+                    </lightning-layout-item>
+                </lightning-layout>
+                <lightning-layout multiple-rows="true">
+                    <template for:each={items.data} for:item="item">
+                        <lightning-layout-item key={item.Id} padding="around-small" size="6" small-device-size="4" large-device-size="2">
+                            <c-item item={item} onopenmodal={handleOpenModal}></c-item>
+                        </lightning-layout-item>
+                    </template>
+                </lightning-layout>
+            </lightning-card>
+        </lightning-layout-item>
+    </lightning-layout>
+</template>

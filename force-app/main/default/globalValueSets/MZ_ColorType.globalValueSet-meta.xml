@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>ベース</fullName>
+        <default>false</default>
+        <label>ベース</label>
+    </customValue>
+    <customValue>
+        <fullName>アクセント</fullName>
+        <default>false</default>
+        <label>アクセント</label>
+    </customValue>
+    <masterLabel>カラー区分</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

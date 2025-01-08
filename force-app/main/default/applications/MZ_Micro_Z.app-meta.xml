@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionOverrides>
+        <actionName>View</actionName>
+        <comment>Action override created by Lightning App Builder during activation.</comment>
+        <content>MZ_ItemPage</content>
+        <formFactor>Small</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+        <pageOrSobjectType>MZ_Item__c</pageOrSobjectType>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <comment>Action override created by Lightning App Builder during activation.</comment>
+        <content>MZ_ItemPage</content>
+        <formFactor>Large</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+        <pageOrSobjectType>MZ_Item__c</pageOrSobjectType>
+    </actionOverrides>
+    <brand>
+        <headerColor>#555555</headerColor>
+        <shouldOverrideOrgTheme>false</shouldOverrideOrgTheme>
+    </brand>
+    <formFactors>Small</formFactors>
+    <formFactors>Large</formFactors>
+    <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
+    <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
+    <label>MICRO Z</label>
+    <navType>Console</navType>
+    <tabs>standard-home</tabs>
+    <tabs>Tab</tabs>
+    <tabs>MZ_Item__c</tabs>
+    <tabs>MZ_Color__c</tabs>
+    <tabs>MZ_Design__c</tabs>
+    <uiType>Lightning</uiType>
+    <utilityBar>micro_z_UtilityBar</utilityBar>
+    <workspaceConfig>
+        <mappings>
+            <tab>MZ_Color__c</tab>
+        </mappings>
+        <mappings>
+            <tab>MZ_Design__c</tab>
+        </mappings>
+        <mappings>
+            <tab>MZ_Item__c</tab>
+        </mappings>
+        <mappings>
+            <tab>Tab</tab>
+        </mappings>
+        <mappings>
+            <tab>standard-home</tab>
+        </mappings>
+    </workspaceConfig>
+</CustomApplication>

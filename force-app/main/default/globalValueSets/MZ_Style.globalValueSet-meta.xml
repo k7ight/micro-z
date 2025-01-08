@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>フォーマル</fullName>
+        <default>false</default>
+        <label>フォーマル</label>
+    </customValue>
+    <customValue>
+        <fullName>カジュアル</fullName>
+        <default>false</default>
+        <label>カジュアル</label>
+    </customValue>
+    <masterLabel>系統</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>
