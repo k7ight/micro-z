@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>春</fullName>
+        <default>false</default>
+        <label>春</label>
+    </customValue>
+    <customValue>
+        <fullName>夏</fullName>
+        <default>false</default>
+        <label>夏</label>
+    </customValue>
+    <customValue>
+        <fullName>秋</fullName>
+        <default>false</default>
+        <label>秋</label>
+    </customValue>
+    <customValue>
+        <fullName>冬</fullName>
+        <default>false</default>
+        <label>冬</label>
+    </customValue>
+    <masterLabel>シーズン</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

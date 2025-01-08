@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>クルーネック</fullName>
+        <default>false</default>
+        <label>クルーネック</label>
+    </customValue>
+    <customValue>
+        <fullName>Vネック</fullName>
+        <default>false</default>
+        <label>Vネック</label>
+    </customValue>
+    <customValue>
+        <fullName>Uネック</fullName>
+        <default>false</default>
+        <label>Uネック</label>
+    </customValue>
+    <customValue>
+        <fullName>モックネック</fullName>
+        <default>false</default>
+        <label>モックネック</label>
+    </customValue>
+    <customValue>
+        <fullName>ハイネック</fullName>
+        <default>false</default>
+        <label>ハイネック</label>
+    </customValue>
+    <customValue>
+        <fullName>タートルネック</fullName>
+        <default>false</default>
+        <label>タートルネック</label>
+    </customValue>
+    <masterLabel>ネック</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

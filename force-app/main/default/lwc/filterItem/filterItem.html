@@ -1,0 +1,38 @@
+<template>
+    <lightning-card title="アイテム絞り込み" icon-name="utility:filterList">
+        <div class="slds-m-around_medium">
+            <lightning-input label="キーワード検索" type="search" value={searchKey} placeholder="キーワードを入力" 
+                onchange={handleSearchKeyChange} class="slds-m-vertical_small">
+            </lightning-input>
+            <lightning-combobox name="category" label="カテゴリ" value={category} placeholder="カテゴリを選択"
+                options={categoryOptions} onchange={handleCategoryChange} class="slds-m-vertical_small">
+            </lightning-combobox>
+            <lightning-combobox name="subCategory" label="サブカテゴリ" value={subCategory} placeholder="サブカテゴリを選択"
+                options={subCategoryOptions} onchange={handleSubCategoryChange} class="slds-m-vertical_small">
+            </lightning-combobox>
+            <template lwc:if={colorGroupOptions.data}>
+                <lightning-combobox name="colorGroup" label="カラー" value={colorGroup} placeholder="カラーを選択"
+                    options={colorGroupOptions.data.values} onchange={handleColorGroupChange} class="slds-m-vertical_small">
+                </lightning-combobox>
+            </template>
+            <template lwc:if={designTypeOptions.data}>
+                <lightning-combobox name="designType" label="デザイン" value={designType} placeholder="デザインを選択"
+                    options={designTypeOptions.data.values} onchange={handleDesignTypeChange} class="slds-m-vertical_small">
+                </lightning-combobox>
+            </template>
+            <template lwc:if={seasonOptions.data}>
+                <lightning-combobox name="season" label="シーズン" value={season} placeholder="シーズンを選択" 
+                    options={seasonOptions.data.values} onchange={handleSeasonChange} class="slds-m-vertical_small">
+                </lightning-combobox>
+            </template>
+            <lightning-button-group class="slds-align_absolute-center">
+                <lightning-button variant="brand" label="検索" icon-name="utility:search"
+                    class="slds-m-top_medium" onclick={handleFilterSet}>
+                </lightning-button>
+                <lightning-button variant="brand-outline" label="クリア" icon-name="utility:refresh"
+                    class="slds-m-top_medium" onclick={handleFilterClear}>
+                </lightning-button>
+            </lightning-button-group>
+        </div>
+    </lightning-card>
+</template>

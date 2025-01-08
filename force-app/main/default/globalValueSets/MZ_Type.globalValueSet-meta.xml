@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>プレーントゥ</fullName>
+        <default>false</default>
+        <label>プレーントゥ</label>
+    </customValue>
+    <customValue>
+        <fullName>ストレートチップ</fullName>
+        <default>false</default>
+        <label>ストレートチップ</label>
+    </customValue>
+    <customValue>
+        <fullName>Uチップ</fullName>
+        <default>false</default>
+        <label>Uチップ</label>
+    </customValue>
+    <customValue>
+        <fullName>ウィングチップ</fullName>
+        <default>false</default>
+        <label>ウィングチップ</label>
+    </customValue>
+    <customValue>
+        <fullName>ホールカット</fullName>
+        <default>false</default>
+        <label>ホールカット</label>
+    </customValue>
+    <customValue>
+        <fullName>ローファー</fullName>
+        <default>false</default>
+        <label>ローファー</label>
+    </customValue>
+    <masterLabel>型</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

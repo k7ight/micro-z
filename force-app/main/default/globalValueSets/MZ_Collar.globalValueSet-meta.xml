@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>レギュラーカラー</fullName>
+        <default>false</default>
+        <label>レギュラーカラー</label>
+    </customValue>
+    <customValue>
+        <fullName>ワイドカラー</fullName>
+        <default>false</default>
+        <label>ワイドカラー</label>
+    </customValue>
+    <customValue>
+        <fullName>ボタンダウン</fullName>
+        <default>false</default>
+        <label>ボタンダウン</label>
+    </customValue>
+    <customValue>
+        <fullName>バンドカラー</fullName>
+        <default>false</default>
+        <label>バンドカラー</label>
+    </customValue>
+    <customValue>
+        <fullName>オープンカラー</fullName>
+        <default>false</default>
+        <label>オープンカラー</label>
+    </customValue>
+    <masterLabel>襟</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

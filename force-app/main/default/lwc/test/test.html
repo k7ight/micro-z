@@ -1,0 +1,14 @@
+<template>
+    <lightning-card title="検索条件指定" icon-name="standard:calibration">
+        <div class="slds-m-around_medium">
+            <div class="slds-m-around_small">
+                <div if:true={industryOptions.data} class="wrapper">
+                    <lightning-combobox name="category" label="カテゴリ" value="" placeholder="カテゴリを選択"
+                        options={industryOptions.data.values} onchange={handleCategoryChange}>
+                    </lightning-combobox>
+                    <p>category:{category}</p>
+                </div>
+            </div>
+        </div>
+    </lightning-card>
+</template>
