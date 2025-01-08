@@ -12,11 +12,10 @@ export default class ItemModal extends LightningModal {
         window.location.href = Url; // 画面遷移
     }
 
-    handleDeleteItem() {
-        const retUrl = 'lightning/n/Tab';
+    async handleDeleteItem() {
         const recordId = this.item.Id;
-        deleteRecord(recordId)
-        .then(() => {
+        try {
+            await deleteRecord(recordId);
             this.dispatchEvent(
                 new ShowToastEvent({
                     title: 'Success',
@@ -24,16 +23,15 @@ export default class ItemModal extends LightningModal {
                     variant: 'success'
                 })
             );
-            this.close();
-        })
-        .catch(error => {
+            await refreshApex(this.wiredAccountsResult);
+        } catch (error) {
             this.dispatchEvent(
                 new ShowToastEvent({
-                    title: 'Error',
-                    message: 'アイテムが削除できませんでした\n' + error.body.message,
+                    title: 'アイテムの削除に失敗しました',
+                    message: reduceErrors(error).join(', '),
                     variant: 'error'
                 })
             );
-        })
+        }
     }
 }

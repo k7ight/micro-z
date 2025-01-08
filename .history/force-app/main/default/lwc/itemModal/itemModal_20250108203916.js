@@ -24,14 +24,14 @@ export default class ItemModal extends LightningModal {
                     variant: 'success'
                 })
             );
-            this.close();
+            this.close;
         })
         .catch(error => {
             this.dispatchEvent(
                 new ShowToastEvent({
-                    title: 'Error',
-                    message: 'アイテムが削除できませんでした\n' + error.body.message,
-                    variant: 'error'
+                    title: 'Success',
+                    message: 'アイテムが削除されました',
+                    variant: 'success'
                 })
             );
         })

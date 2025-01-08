@@ -13,7 +13,6 @@ export default class ItemModal extends LightningModal {
     }
 
     handleDeleteItem() {
-        const retUrl = 'lightning/n/Tab';
         const recordId = this.item.Id;
         deleteRecord(recordId)
         .then(() => {
@@ -24,14 +23,16 @@ export default class ItemModal extends LightningModal {
                     variant: 'success'
                 })
             );
-            this.close();
+            const retUrl = ; // フロー終了後の遷移先URL
+            window.location.href = retUrl; // 画面遷移
+
         })
         .catch(error => {
             this.dispatchEvent(
                 new ShowToastEvent({
-                    title: 'Error',
-                    message: 'アイテムが削除できませんでした\n' + error.body.message,
-                    variant: 'error'
+                    title: 'Success',
+                    message: 'アイテムが削除されました',
+                    variant: 'success'
                 })
             );
         })

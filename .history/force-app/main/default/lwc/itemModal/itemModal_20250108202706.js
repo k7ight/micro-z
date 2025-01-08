@@ -13,27 +13,25 @@ export default class ItemModal extends LightningModal {
     }
 
     handleDeleteItem() {
-        const retUrl = 'lightning/n/Tab';
         const recordId = this.item.Id;
-        deleteRecord(recordId)
-        .then(() => {
+        try {
+            await deleteRecord(recordId);
             this.dispatchEvent(
                 new ShowToastEvent({
                     title: 'Success',
-                    message: 'アイテムが削除されました',
+                    message: 'Account deleted',
                     variant: 'success'
                 })
             );
-            this.close();
-        })
-        .catch(error => {
+            await refreshApex(this.wiredAccountsResult);
+        } catch (error) {
             this.dispatchEvent(
                 new ShowToastEvent({
-                    title: 'Error',
-                    message: 'アイテムが削除できませんでした\n' + error.body.message,
+                    title: 'Error deleting record',
+                    message: reduceErrors(error).join(', '),
                     variant: 'error'
                 })
             );
-        })
+        }
     }
 }
