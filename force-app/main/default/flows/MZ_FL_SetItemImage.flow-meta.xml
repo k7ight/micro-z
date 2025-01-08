@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>59.0</apiVersion>
+    <description>画面フローからアイテム登録する前提でアイテム更新時にファイル画像の関連付けを行うためのフロー（Apexトリガーで直接ファイル関連付け更新時に画像設定するため現在は不要）</description>
     <environments>Default</environments>
     <interviewLabel>アイテム画像設定フロー {!$Flow.CurrentDateTime}</interviewLabel>
     <label>アイテム画像設定フロー</label>
@@ -108,10 +109,10 @@
             <targetReference>GET_ContentDocumentLink</targetReference>
         </connector>
         <object>MZ_Item__c</object>
-        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <recordTriggerType>Update</recordTriggerType>
         <triggerType>RecordAfterSave</triggerType>
     </start>
-    <status>Obsolete</status>
+    <status>Draft</status>
     <variables>
         <name>contentDocumentId</name>
         <dataType>String</dataType>

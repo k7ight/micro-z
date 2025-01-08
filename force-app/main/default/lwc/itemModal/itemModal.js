@@ -15,6 +15,11 @@ export default class ItemModal extends LightningModal {
     async handleDeleteItem() {
         const retUrl = 'lightning/n/Tab';
         const recordId = this.item.Id;
+        const dialog = window.confirm('このアイテムの削除を実行しますか?');
+
+        if (!dialog) {
+            return;
+        }
     
         try {
             await deleteRecord(recordId);
@@ -35,7 +40,7 @@ export default class ItemModal extends LightningModal {
             this.dispatchEvent(
                 new ShowToastEvent({
                     title: 'Error',
-                    message: 'アイテムの削除に失敗しました\n' + error.body.message,
+                    message: 'アイテムの削除に失敗しました:' + error.body.message,
                     variant: 'error'
                 })
             );
