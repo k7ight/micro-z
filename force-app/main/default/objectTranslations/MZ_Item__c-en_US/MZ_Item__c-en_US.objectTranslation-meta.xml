@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>アイテム</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>アイテム</value>
+    </caseValues>
+    <layouts>
+        <layout>アイテムレイアウト</layout>
+        <sections>
+            <label><!-- アイテム共通情報 --></label>
+            <section>アイテム共通情報</section>
+        </sections>
+        <sections>
+            <label><!-- アイテム固有情報 --></label>
+            <section>アイテム固有情報</section>
+        </sections>
+        <sections>
+            <label><!-- カスタムリンク --></label>
+            <section>カスタムリンク</section>
+        </sections>
+        <sections>
+            <label><!-- 購入情報 --></label>
+            <section>購入情報</section>
+        </sections>
+    </layouts>
+    <layouts>
+        <layout>アウターレイアウト</layout>
+        <sections>
+            <label><!-- アイテム共通情報 --></label>
+            <section>アイテム共通情報</section>
+        </sections>
+        <sections>
+            <label><!-- アイテム固有情報 --></label>
+            <section>アイテム固有情報</section>
+        </sections>
+        <sections>
+            <label><!-- カスタムリンク --></label>
+            <section>カスタムリンク</section>
+        </sections>
+        <sections>
+            <label><!-- 購入情報 --></label>
+            <section>購入情報</section>
+        </sections>
+    </layouts>
+    <recordTypes>
+        <label><!-- 07_バッグ --></label>
+        <name>MZ_Bag_RecordType</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- 05_パンツ --></label>
+        <name>MZ_Bottoms_RecordType</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- 00_マスタ --></label>
+        <name>MZ_Master_RecordType</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- 99_その他アイテム --></label>
+        <name>MZ_OtherItem_RecordType</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- 01_アウター --></label>
+        <name>MZ_Outer_RecordType</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- 08_シューズ --></label>
+        <name>MZ_Shoes_RecordType</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- 06_スカート・ワンピース --></label>
+        <name>MZ_Skirt_RecordType</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- 04_トップス_共通 --></label>
+        <name>MZ_Tops_Common_RecordType</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- 02_トップス_ニット・スウェット・Tシャツ --></label>
+        <name>MZ_Tops_Knit_RecordType</name>
+    </recordTypes>
+    <recordTypes>
+        <label><!-- 03_トップス_シャツ --></label>
+        <name>MZ_Tops_Shirt_RecordType</name>
+    </recordTypes>
+    <startsWith>Consonant</startsWith>
+    <webLinks>
+        <label><!-- CreateNewItem --></label>
+        <name>CreateNewItem</name>
+    </webLinks>
+    <webLinks>
+        <label><!-- Mass_Delete_Records --></label>
+        <name>Mass_Delete_Records</name>
+    </webLinks>
+</CustomObjectTranslation>

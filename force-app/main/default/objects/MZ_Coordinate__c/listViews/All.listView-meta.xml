@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All</fullName>
+    <columns>NAME</columns>
+    <columns>MZ_Outer__c</columns>
+    <columns>MZ_Tops__c</columns>
+    <columns>MZ_Inner__c</columns>
+    <columns>MZ_Bottoms__c</columns>
+    <columns>MZ_Shoes__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>すべて選択</label>
+</ListView>

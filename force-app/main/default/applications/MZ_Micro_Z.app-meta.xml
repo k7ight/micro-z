@@ -3,7 +3,7 @@
     <actionOverrides>
         <actionName>View</actionName>
         <comment>Action override created by Lightning App Builder during activation.</comment>
-        <content>MZ_ItemPage</content>
+        <content>MZ_Item_Page</content>
         <formFactor>Small</formFactor>
         <skipRecordTypeSelect>false</skipRecordTypeSelect>
         <type>Flexipage</type>
@@ -12,7 +12,7 @@
     <actionOverrides>
         <actionName>View</actionName>
         <comment>Action override created by Lightning App Builder during activation.</comment>
-        <content>MZ_ItemPage</content>
+        <content>MZ_Item_Page</content>
         <formFactor>Large</formFactor>
         <skipRecordTypeSelect>false</skipRecordTypeSelect>
         <type>Flexipage</type>
@@ -35,11 +35,15 @@
     <tabs>MZ_Item__c</tabs>
     <tabs>MZ_Color__c</tabs>
     <tabs>MZ_Design__c</tabs>
+    <tabs>MZ_Coordinate__c</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>micro_z_UtilityBar</utilityBar>
     <workspaceConfig>
         <mappings>
             <tab>MZ_Color__c</tab>
+        </mappings>
+        <mappings>
+            <tab>MZ_Coordinate__c</tab>
         </mappings>
         <mappings>
             <tab>MZ_Design__c</tab>

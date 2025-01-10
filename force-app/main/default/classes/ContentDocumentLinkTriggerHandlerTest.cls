@@ -34,7 +34,7 @@ private class ContentDocumentLinkTriggerHandlerTest {
         insert cvList;
     }
    
-	@isTest
+    @isTest
     static void testInsertAndDelete() {
         // テストItemレコード、ContentVersionレコードを取得
         MZ_Item__c item = [select Id, MZ_ContentVersionId__c, MZ_ContentBodyId__c, MZ_ImageFileExtension__c from MZ_Item__c where Name = 'テストアウター' limit 1];

@@ -9,7 +9,7 @@
     <valueSet>
         <controllingField>MZ_SubCategory__c</controllingField>
         <restricted>true</restricted>
-        <valueSetName>MR_Neck</valueSetName>
+        <valueSetName>MZ_Neck</valueSetName>
         <valueSettings>
             <controllingFieldValue>Tシャツ・カットソー</controllingFieldValue>
             <controllingFieldValue>ニット</controllingFieldValue>

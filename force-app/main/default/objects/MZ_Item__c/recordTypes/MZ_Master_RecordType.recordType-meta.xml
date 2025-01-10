@@ -87,6 +87,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>ノースリーブ</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>フルレングス</fullName>
             <default>false</default>
         </values>

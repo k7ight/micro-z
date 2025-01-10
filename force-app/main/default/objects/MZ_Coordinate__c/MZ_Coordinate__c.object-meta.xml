@@ -129,7 +129,7 @@
     <actionOverrides>
         <actionName>View</actionName>
         <comment>Action override created by Lightning App Builder during activation.</comment>
-        <content>MZ_Item_Page</content>
+        <content>MZ_Coordinate_Page</content>
         <formFactor>Large</formFactor>
         <skipRecordTypeSelect>false</skipRecordTypeSelect>
         <type>Flexipage</type>
@@ -137,7 +137,7 @@
     <actionOverrides>
         <actionName>View</actionName>
         <comment>Action override created by Lightning App Builder during activation.</comment>
-        <content>MZ_Item_Page</content>
+        <content>MZ_Coordinate_Page</content>
         <formFactor>Small</formFactor>
         <skipRecordTypeSelect>false</skipRecordTypeSelect>
         <type>Flexipage</type>
@@ -159,30 +159,15 @@
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
     <externalSharingModel>Private</externalSharingModel>
-    <label>アイテム</label>
+    <label>コーデ</label>
     <nameField>
-        <label>アイテム名</label>
+        <displayFormat>CD-{0000}</displayFormat>
+        <label>コーデID</label>
         <trackHistory>false</trackHistory>
-        <type>Text</type>
+        <type>AutoNumber</type>
     </nameField>
-    <pluralLabel>アイテム</pluralLabel>
-    <recordTypeTrackHistory>false</recordTypeTrackHistory>
-    <searchLayouts>
-        <excludedStandardButtons>New</excludedStandardButtons>
-        <excludedStandardButtons>OpenListInQuip</excludedStandardButtons>
-        <excludedStandardButtons>NewFromDocument</excludedStandardButtons>
-        <excludedStandardButtons>Accept</excludedStandardButtons>
-        <excludedStandardButtons>ChangeOwner</excludedStandardButtons>
-        <excludedStandardButtons>PrintableListView</excludedStandardButtons>
-        <excludedStandardButtons>Import</excludedStandardButtons>
-        <excludedStandardButtons>MassChangeOwner</excludedStandardButtons>
-        <listViewButtons>CreateNewItem</listViewButtons>
-        <listViewButtons>Mass_Delete_Records</listViewButtons>
-        <searchResultsAdditionalFields>MZ_ItemImage__c</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>MZ_Category__c</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>MZ_SubCategory__c</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>MZ_Color__c</searchResultsAdditionalFields>
-    </searchLayouts>
+    <pluralLabel>コーデ</pluralLabel>
+    <searchLayouts></searchLayouts>
     <sharingModel>ReadWrite</sharingModel>
     <visibility>Public</visibility>
 </CustomObject>
