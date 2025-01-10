@@ -19,7 +19,7 @@
         <pageOrSobjectType>MZ_Item__c</pageOrSobjectType>
     </actionOverrides>
     <brand>
-        <headerColor>#555555</headerColor>
+        <headerColor>#666666</headerColor>
         <shouldOverrideOrgTheme>false</shouldOverrideOrgTheme>
     </brand>
     <formFactors>Small</formFactors>
@@ -28,7 +28,7 @@
     <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
     <isNavTabPersistenceDisabled>false</isNavTabPersistenceDisabled>
     <isOmniPinnedViewEnabled>false</isOmniPinnedViewEnabled>
-    <label>MICRO Z</label>
+    <label>micro-z</label>
     <navType>Console</navType>
     <tabs>standard-home</tabs>
     <tabs>Tab</tabs>

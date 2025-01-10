@@ -2,7 +2,7 @@
 <RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>MZ_Master_RecordType</fullName>
     <active>true</active>
-    <label>00_マスタ</label>
+    <label>マスター</label>
     <picklistValues>
         <picklist>MZ_Category__c</picklist>
         <values>
