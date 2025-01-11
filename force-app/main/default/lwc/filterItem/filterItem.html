@@ -25,14 +25,16 @@
                     options={seasonOptions.data.values} onchange={handleSeasonChange} class="slds-m-vertical_small">
                 </lightning-combobox>
             </template>
-            <lightning-button-group class="slds-align_absolute-center">
-                <lightning-button variant="brand" label="検索" icon-name="utility:search"
+            <div class="slds-align_absolute-center">
+            <!-- <lightning-button-group class="slds-align_absolute-center"> -->
+                <!-- <lightning-button variant="brand" label="検索" icon-name="utility:search"
                     class="slds-m-top_medium" onclick={handleFilterSet}>
-                </lightning-button>
-                <lightning-button variant="brand-outline" label="クリア" icon-name="utility:refresh"
+                </lightning-button> -->
+                <lightning-button variant="brand" label="クリア" icon-name="utility:refresh"
                     class="slds-m-top_medium" onclick={handleFilterClear}>
                 </lightning-button>
-            </lightning-button-group>
+            </div>
+            <!-- </lightning-button-group> -->
         </div>
     </lightning-card>
 </template>

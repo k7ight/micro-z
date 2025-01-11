@@ -74,29 +74,36 @@ export default class FilterItem extends LightningElement {
 
     handleSearchKeyChange(event) {
         this.searchKey = event.detail.value;
+        this.handleFilterSet();
     }
     handleCategoryChange(event) {
-        console.log('[DEBUG] handleCategoryChange call');
+        // console.log('[DEBUG] handleCategoryChange call');
         this.category = event.detail.value;
-        console.log('[DEBUG] category=' + this.category);
+        this.handleFilterSet();
+
+        // console.log('[DEBUG] category=' + this.category);
     }
     handleSubCategoryChange(event) {
         this.subCategory = event.detail.value;
+        this.handleFilterSet();
     }
     handleColorGroupChange(event) {
         this.colorGroup = event.detail.value;
+        this.handleFilterSet();
     }
     handleDesignTypeChange(event) {
         this.designType = event.detail.value;
+        this.handleFilterSet();
     }
     handleSeasonChange(event) {
         this.season = event.detail.value;
+        this.handleFilterSet();
     }
     handleFilterSet() {
-        console.log('[DEBUG] filterItem handleFilterSet call');
-        console.log('[DEBUG] category, subCategory, colorGroup, designType, season, searchKey: '
-            + this.category + ',' + this.subCategory + ',' + this.colorGroup + ',' + this.designType + ','
-            + this.season +  ',' + this.searchKey);
+        // console.log('[DEBUG] filterItem handleFilterSet call');
+        // console.log('[DEBUG] category, subCategory, colorGroup, designType, season, searchKey: '
+        //     + this.category + ',' + this.subCategory + ',' + this.colorGroup + ',' + this.designType + ','
+        //     + this.season +  ',' + this.searchKey);
         const event = new CustomEvent(
             'filterset',
             {
@@ -114,7 +121,7 @@ export default class FilterItem extends LightningElement {
     }
 
     handleFilterClear() {
-        console.log('[DEBUG] filterItem handleFilterClear call');
+        // console.log('[DEBUG] filterItem handleFilterClear call');
         this.category = '';
         this.subCategory = '';
         this.colorGroup = '';
