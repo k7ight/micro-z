@@ -22,7 +22,7 @@
                 </lightning-layout>
                 <lightning-layout multiple-rows="true">
                     <template for:each={items.data} for:item="item">
-                        <lightning-layout-item key={item.Id} padding="around-small" size="6" small-device-size="4" large-device-size="2">
+                        <lightning-layout-item key={item.Id} padding="around-small" size="6" medium-device-size="4" large-device-size="2">
                             <c-item item={item} onopenmodal={handleOpenModal}></c-item>
                         </lightning-layout-item>
                     </template>

@@ -9,6 +9,7 @@ export default class ItemModal extends LightningModal {
     handleEditItem() {
         const recordId = this.item.Id;
         const Url = `/lightning/r/MZ_Item__c/${recordId}/view`;
+        this.close();
         window.location.href = Url; // 画面遷移
     }
 
