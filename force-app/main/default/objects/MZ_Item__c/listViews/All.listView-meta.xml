@@ -18,10 +18,5 @@
         <operation>equals</operation>
         <value>MZ_Item__c.MZ_Master_RecordType</value>
     </filters>
-    <filters>
-        <field>MZ_Category__c</field>
-        <operation>equals</operation>
-        <value>パンツ</value>
-    </filters>
     <label>すべて選択</label>
 </ListView>

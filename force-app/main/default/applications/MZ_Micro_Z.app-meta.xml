@@ -36,9 +36,13 @@
     <tabs>MZ_Color__c</tabs>
     <tabs>MZ_Design__c</tabs>
     <tabs>MZ_Coordinate__c</tabs>
+    <tabs>MZ_ColorMatching__c</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>micro_z_UtilityBar</utilityBar>
     <workspaceConfig>
+        <mappings>
+            <tab>MZ_ColorMatching__c</tab>
+        </mappings>
         <mappings>
             <tab>MZ_Color__c</tab>
         </mappings>

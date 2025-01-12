@@ -636,9 +636,6 @@
                         <valueListItems>
                             <value>Clone</value>
                         </valueListItems>
-                        <valueListItems>
-                            <value>ChangeRecordType</value>
-                        </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
                 <componentInstanceProperties>

@@ -19,6 +19,9 @@
 		<name>CustomApplication</name>
 	</types>
 	<types>
+		<members>MZ_ColorMatching__c.MZ_Color1__c</members>
+		<members>MZ_ColorMatching__c.MZ_Color2__c</members>
+		<members>MZ_ColorMatching__c.MZ_MatchingScore__c</members>
 		<members>MZ_Color__c.MZ_ColorGroup__c</members>
 		<members>MZ_Color__c.MZ_ColorType__c</members>
 		<members>MZ_Coordinate__c.MZ_Bottoms__c</members>
@@ -52,6 +55,7 @@
 		<name>CustomField</name>
 	</types>
 	<types>
+		<members>MZ_ColorMatching__c</members>
 		<members>MZ_Color__c</members>
 		<members>MZ_Coordinate__c</members>
 		<members>MZ_Design__c</members>
@@ -75,11 +79,13 @@
 	</types>
 	<types>
 		<members>MZ_FL_CreateItem</members>
+		<members>MZ_FL_DuplicateCheckColorMatching</members>
 		<members>MZ_FL_SetItemImage</members>
 		<name>Flow</name>
 	</types>
 	<types>
 		<members>MZ_FL_CreateItem</members>
+		<members>MZ_FL_DuplicateCheckColorMatching</members>
 		<members>MZ_FL_SetItemImage</members>
 		<name>FlowDefinition</name>
 	</types>
@@ -88,11 +94,11 @@
 		<name>GlobalValueSet</name>
 	</types>
 	<types>
+		<members>MZ_ColorMatching__c-カラーマッチングレイアウト</members>
 		<members>MZ_Color__c-カラーレイアウト</members>
 		<members>MZ_Coordinate__c-コーデレイアウト</members>
 		<members>MZ_Design__c-デザインレイアウト</members>
 		<members>MZ_Item__c-アイテムレイアウト</members>
-		<members>MZ_Item__c-アウターレイアウト</members>
 		<name>Layout</name>
 	</types>
 	<types>
@@ -107,6 +113,7 @@
 		<name>LightningExperienceTheme</name>
 	</types>
 	<types>
+		<members>MZ_ColorMatching__c.All</members>
 		<members>MZ_Color__c.All</members>
 		<members>MZ_Coordinate__c.All</members>
 		<members>MZ_Design__c.All</members>
@@ -114,16 +121,7 @@
 		<name>ListView</name>
 	</types>
 	<types>
-		<members>MZ_Item__c.MZ_Bag_RecordType</members>
-		<members>MZ_Item__c.MZ_Bottoms_RecordType</members>
 		<members>MZ_Item__c.MZ_Master_RecordType</members>
-		<members>MZ_Item__c.MZ_OtherItem_RecordType</members>
-		<members>MZ_Item__c.MZ_Outer_RecordType</members>
-		<members>MZ_Item__c.MZ_Shoes_RecordType</members>
-		<members>MZ_Item__c.MZ_Skirt_RecordType</members>
-		<members>MZ_Item__c.MZ_Tops_Common_RecordType</members>
-		<members>MZ_Item__c.MZ_Tops_Knit_RecordType</members>
-		<members>MZ_Item__c.MZ_Tops_Shirt_RecordType</members>
 		<name>RecordType</name>
 	</types>
 	<types>
