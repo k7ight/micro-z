@@ -1,6 +1,8 @@
 public class ItemController {
     @AuraEnabled(cacheable=true)
-    public static List<MZ_Item__c> getItems(String category, String subCategory, String colorGroup, String designType, String season, String searchKey) {
+    public static List<MZ_Item__c> getItems(String category, String subCategory, String colorGroup, 
+                                            String designType, String season, String searchKey, 
+                                            String sortKey, String sortOrder) {
 
         String query = 'SELECT Id, Name, MZ_Category__c, MZ_SubCategory__c, MZ_Color__r.MZ_ColorGroup__c, ';
         query += 'MZ_Design__r.MZ_DesignType__c, MZ_Season__c, MZ_ItemURL__c, MZ_ItemImage__c, ';
@@ -41,7 +43,13 @@ public class ItemController {
         if (!conditions.isEmpty()) {
             query += ' WHERE ' + String.join(conditions, ' AND ');
         }
-        query += ' ORDER BY CreatedDate DESC';
+                                                
+        // ソートキー指定がある場合は指定
+        if(String.isNotBlank(sortKey)) {
+            query += ' ORDER BY ' + sortKey + ' ' + sortOrder;
+        } else {
+	        query += ' ORDER BY CreatedDate DESC';            
+        }                                       
         System.debug('query: '+query);
 		System.debug('binds: '+binds);
         return Database.queryWithBinds(query, binds, AccessLevel.USER_MODE);

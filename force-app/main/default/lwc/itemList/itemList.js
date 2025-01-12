@@ -1,6 +1,8 @@
 import { LightningElement, wire } from 'lwc';
 import getItems from '@salesforce/apex/ItemController.getItems';
 import ItemModal from 'c/itemModal';
+import PURCHASEDATE_FIELD from '@salesforce/schema/MZ_Item__c.MZ_PurchaseDate__c';
+import PURCHASEPRICE_FIELD from '@salesforce/schema/MZ_Item__c.MZ_PurchasePrice__c';
 
 export default class ItemList extends LightningElement {
     category = '';
@@ -9,6 +11,15 @@ export default class ItemList extends LightningElement {
     designType = '';
     season = '';
     searchKey = '';
+    sortKey = '';
+    sortOrder = '';
+
+    sortKeyOptions = [
+        {label: '購入日昇順' , value: JSON.stringify({key: PURCHASEDATE_FIELD.fieldApiName, order: 'ASC'})},
+        {label: '購入日降順' , value: JSON.stringify({key: PURCHASEDATE_FIELD.fieldApiName, order: 'DESC'})},
+        {label: '購入価格昇順', value: JSON.stringify({key: PURCHASEPRICE_FIELD.fieldApiName, order: 'ASC'})},
+        {label: '購入価格降順', value: JSON.stringify({key: PURCHASEPRICE_FIELD.fieldApiName, order: 'DESC'})}
+    ];
 
     // 絞り込み条件に該当するitemを取得
     @wire(getItems, {
@@ -17,7 +28,9 @@ export default class ItemList extends LightningElement {
         colorGroup: '$colorGroup',
         designType: '$designType',
         season: '$season',
-        searchKey: '$searchKey'
+        searchKey: '$searchKey',
+        sortKey: '$sortKey',
+        sortOrder: '$sortOrder'
     })
     items;
 
@@ -28,21 +41,28 @@ export default class ItemList extends LightningElement {
         });
     }
 
+    handleSortKeyChange(event) {
+        const sortCondition = JSON.parse(event.detail.value);
+        this.sortKey = sortCondition.key;
+        this.sortOrder = sortCondition.order;
+        // console.log('[DEBUG] sortKey: ' + this.sortKey + ', sortOrder: ' + this.sortOrder);
+    }
+
     handleFilterSet(event) {
-        console.log('[DEBUG] itemList handleFilterSet call');
+        // console.log('[DEBUG] itemList handleFilterSet call');
         this.category = event.detail.category;
         this.subCategory = event.detail.subCategory;
         this.colorGroup = event.detail.colorGroup;
         this.designType = event.detail.designType;
         this.season = event.detail.season;
         this.searchKey = event.detail.searchKey;
-        console.log('[DEBUG] category, subCategory, colorGroup, designType, season, searchKey: '
-            + this.category + ',' + this.subCategory + ',' + this.colorGroup + ',' + this.designType + ','
-            + this.season +  ',' + this.searchKey);
+        // console.log('[DEBUG] category, subCategory, colorGroup, designType, season, searchKey: '
+        //     + this.category + ',' + this.subCategory + ',' + this.colorGroup + ',' + this.designType + ','
+        //     + this.season +  ',' + this.searchKey);
     }
 
     handleFilterClear() {
-        console.log('[DEBUG] itemList handleFilterClear call');
+        // console.log('[DEBUG] itemList handleFilterClear call');
         this.category = '';
         this.subCategory = '';
         this.colorGroup = '';
