@@ -5,7 +5,6 @@ import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 export default class ItemModal extends LightningModal {
     @api item;
-    @api scrollPosition;
 
     handleEditItem() {
         const recordId = this.item.Id;
@@ -49,10 +48,7 @@ export default class ItemModal extends LightningModal {
         }
     }
 
-    // close() {
-    //     console.log('[DEBUG] close() call');
-    //     console.log('[DEBUG] scrollPosition: ' + this.scrollPosition);
-    //     super.close();
-    //     window.scrollTo(0, this.scrollPosition);
-    // }
+    handleCloseModal() {
+        this.isModalVisible = false;
+    }
 }

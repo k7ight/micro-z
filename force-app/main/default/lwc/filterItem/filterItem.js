@@ -43,6 +43,7 @@ export default class FilterItem extends LightningElement {
     designTypeOptions;   
 
     get categoryOptions() {
+        // console.log('[DEBUG] categoryOptions call');
         if(this.subCategories.data != undefined) {
             // （category名、通番）のマップ情報を取得
             this.categoryMap = this.subCategories.data.controllerValues;
@@ -58,6 +59,7 @@ export default class FilterItem extends LightningElement {
 
     // プロパティ（category）が変更されるたびに実行
     get subCategoryOptions() {
+        // console.log('[DEBUG] subCategoryOptions call');
         if(this.subCategories.data != undefined) {
             // 全subCategoryの選択リスト値を取得し、allSubCategoriesへ格納
             const allSubCategories = this.subCategories.data.values;

@@ -21,6 +21,10 @@ export default class ItemList extends LightningElement {
         {label: '購入価格降順', value: JSON.stringify({key: PURCHASEPRICE_FIELD.fieldApiName, order: 'DESC'})}
     ];
 
+    // isModalVisible = false;
+    // item = '';
+
+
     // 絞り込み条件に該当するitemを取得
     @wire(getItems, {
         category: '$category',
@@ -34,12 +38,20 @@ export default class ItemList extends LightningElement {
     })
     items;
 
+    // 非同期ロジック
     async handleOpenModal(event) {
+        // console.log('[DEBUG] handleOpenModal call');
+        // console.log('[DEBUG] scrollPosition: ' + window.scrollY);
         const result = await ItemModal.open({
             size: 'small',
-            item: event.detail
+            item: event.detail,
         });
     }
+    // // 子コンポーネント呼び出しロジック
+    // handleOpenModal(event) {
+    //     this.isModalVisible = true;
+    //     this.item = event.detail;
+    // }
 
     handleSortKeyChange(event) {
         const sortCondition = JSON.parse(event.detail.value);
