@@ -1,11 +1,17 @@
-import { api } from 'lwc';
+import { api, wire } from 'lwc';
 import LightningModal from 'lightning/modal';
 import { deleteRecord } from 'lightning/uiRecordApi';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+// import { NavigationMixin } from 'lightning/navigation';
+// import { publish, MessageContext } from 'lightning/messageService';
+// import ITEM_MESSAGE_CHANNEL from '@salesforce/messageChannel/ItemMessageChannel__c';
 
 export default class ItemModal extends LightningModal {
     @api item;
-    @api scrollPosition;
+    // @api scrollPosition;
+
+    // @wire(MessageContext)
+    // messageContext;
 
     handleEditItem() {
         const recordId = this.item.Id;
@@ -15,7 +21,7 @@ export default class ItemModal extends LightningModal {
     }
 
     async handleDeleteItem() {
-        const retUrl = 'lightning/n/Tab';
+        const retUrl = 'lightning/n/MZ_SearchItem_Tab';
         const recordId = this.item.Id;
         const dialog = window.confirm('このアイテムの削除を実行しますか?');
 
@@ -49,6 +55,10 @@ export default class ItemModal extends LightningModal {
         }
     }
 
+    handleCloseModal() {
+        console.log('[DEBUG] handleCloseModal call');
+        this.close();
+    }
     // close() {
     //     console.log('[DEBUG] close() call');
     //     console.log('[DEBUG] scrollPosition: ' + this.scrollPosition);

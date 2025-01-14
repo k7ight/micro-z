@@ -1,10 +1,11 @@
 import { LightningElement, wire } from 'lwc';
+import { NavigationMixin } from "lightning/navigation";
 import getItems from '@salesforce/apex/ItemController.getItems';
 import ItemModal from 'c/itemModal';
 import PURCHASEDATE_FIELD from '@salesforce/schema/MZ_Item__c.MZ_PurchaseDate__c';
 import PURCHASEPRICE_FIELD from '@salesforce/schema/MZ_Item__c.MZ_PurchasePrice__c';
 
-export default class ItemList extends LightningElement {
+export default class ItemList extends NavigationMixin(LightningElement) {
     category = '';
     subCategory = '';
     colorGroup = '';
@@ -40,11 +41,14 @@ export default class ItemList extends LightningElement {
 
     // 非同期ロジック
     async handleOpenModal(event) {
-        // console.log('[DEBUG] handleOpenModal call');
-        // console.log('[DEBUG] scrollPosition: ' + window.scrollY);
+        console.log('[DEBUG] handleOpenModal call');
         const result = await ItemModal.open({
             size: 'small',
             item: event.detail,
+            onnavigate: (e) => {
+                console.log('[DEBUG] onnavigate: ' + JSON.stringify(e.detail));
+                this[NavigationMixin.Navigate](e.detail);
+            }
         });
     }
     // // 子コンポーネント呼び出しロジック
@@ -85,7 +89,7 @@ export default class ItemList extends LightningElement {
 
     handleCreateItem() {
         const flowApiName = 'MZ_FL_CreateItem'; // フローのAPI名を指定
-        const retUrl = 'lightning/n/Tab'; // フロー終了後の遷移先URL
+        const retUrl = 'lightning/n/MZ_SearchItem_Tab'; // フロー終了後の遷移先URL
         const flowUrl = `/flow/${flowApiName}?retURL=${retUrl}`; // フローのURLを構築
         window.location.href = flowUrl; // 画面遷移
     }
