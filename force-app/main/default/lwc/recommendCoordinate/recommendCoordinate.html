@@ -1,5 +1,5 @@
 <template>
-    <lightning-layout>
+    <lightning-layout multiple-rows="true">
         <lightning-layout-item padding="around-small" size="12" medium-device-size="5" large-device-size="3">
             <template lwc:if={item.data}>
                 <c-view-item item={item.data.fields} ongenarate={handleGenerate}></c-view-item>
@@ -7,7 +7,7 @@
         </lightning-layout-item>
         <lightning-layout-item padding="around-small" size="12" medium-device-size="7" large-device-size="9">
             <lightning-card title="レコメンドコーデ" icon-name="utility:data_graph">
-                <lightning-layout multiple-rows="true" vertical-align="end">
+                <!-- <lightning-layout multiple-rows="true" vertical-align="end">
                     <lightning-layout-item padding="around-small" size="12" small-device-size="6" large-device-size="3">
                         <div style="text-align: left;">
                             <lightning-combobox name="season" label="シーズン" value="" placeholder="シーズンを選択"
@@ -15,14 +15,14 @@
                             </lightning-combobox>
                         </div>
                     </lightning-layout-item>
-                    <lightning-layout-item padding="around-small" size="12" small-device-size="6" large-device-size="9">
-                        <div style="text-align: right;">
+                    <lightning-layout-item padding="around-small" size="12" small-device-size="6" large-device-size="9"> -->
+                        <div style="text-align: right;" class="slds-m-around_small">
                             <lightning-button variant="brand" label="マイコーデ登録" icon-name="utility:sparkles" 
                                 onclick={createMyCoordinate}>
                             </lightning-button>
                         </div>
-                    </lightning-layout-item>
-                </lightning-layout>
+                    <!-- </lightning-layout-item>
+                </lightning-layout> -->
                 <lightning-layout multiple-rows="true">
                     <!-- <template for:each={coordinates.data} for:item="coordinate">
                         <lightning-layout-item key={coordinate.Id} padding="around-small" size="12">
