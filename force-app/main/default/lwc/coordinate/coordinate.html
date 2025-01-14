@@ -1,9 +1,32 @@
 <template>
-    <lightning-layout>
-        <div class="slds-box" style={outerImage}></div>
-        <div class="slds-box" style={topsImage}></div>
-        <div class="slds-box" style={innerImage}></div>
-        <div class="slds-box" style={bottomsImage}></div>
-        <div class="slds-box" style={shoesImage}></div>
+    <lightning-layout vertical-align="center">
+        <lightning-layout-item padding="around-small" size="1">
+            <lightning-input type="checkbox-button" label="" name=""></lightning-input>
+        </lightning-layout-item>
+        <lightning-layout-item padding="around-small" size="11">
+            <lightning-layout multiple-rows="true" vertical-align="center">
+                <lightning-layout-item padding="around-small" size="6" medium-device-size="4" large-device-size="2">
+                    <div class="slds-box" style={outerImage}></div>
+                </lightning-layout-item>
+                <lightning-layout-item padding="around-small" size="6" medium-device-size="4" large-device-size="2">
+                    <div class="slds-box" style={topsImage}></div>
+                </lightning-layout-item>
+                <lightning-layout-item padding="around-small" size="6" medium-device-size="4" large-device-size="2">
+                    <div class="slds-box" style={innerImage}></div>
+                </lightning-layout-item>
+                <lightning-layout-item padding="around-small" size="6" medium-device-size="4" large-device-size="2">
+                    <div class="slds-box" style={bottomsImage}></div>
+                </lightning-layout-item>
+                <lightning-layout-item padding="around-small" size="6" medium-device-size="4" large-device-size="2">
+                    <div class="slds-box" style={shoesImage}></div>
+                </lightning-layout-item>
+                <lightning-layout-item padding="around-small" size="6" medium-device-size="4" large-device-size="2">
+                    <div class="slds-box">
+                        <p class="slds-text-heading_medium slds-align_absolute-center">Score</p>
+                        <p class="slds-text-heading_medium slds-align_absolute-center">100</p>
+                    </div>
+                </lightning-layout-item>
+            </lightning-layout>
+        </lightning-layout-item>
     </lightning-layout>
 </template>

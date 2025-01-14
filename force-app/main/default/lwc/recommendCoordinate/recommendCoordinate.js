@@ -15,6 +15,12 @@ const FIELDS = [CATEGORY_FIELD, SUBCATEGORY_FIELD, COLORID_FIELD, DESIGNTYPE_FIE
 export default class RecommendCoordinate extends LightningElement {
     recordId;
     // item;
+    category = '';
+    subCategory = '';
+    colorId = '';
+    designType = '';
+    season = '';
+    style = '';
  
     @wire(CurrentPageReference)
     getPageReference(pageRef) {
@@ -39,8 +45,28 @@ export default class RecommendCoordinate extends LightningElement {
     //     }
     // }
 
+    // コーデパターンを生成するApexを呼び出し
+    // @wire(generateCoordinate)
+
     handleGenerate(event) {
         console.log('[DEBUG] recommendCoordinate handleGenerate call');
-        console.log('[DEBUG] event: ' + JSON.stringify(event.detail));
+        console.log('[DEBUG] event: ' + JSON.stringify(event.detail.category));
+        this.category = event.detail.category;
+        console.log('[DEBUG] category');
+        this.subCategory = event.detail.subCategory;
+        console.log('[DEBUG] subCategory');
+        this.colorId = event.detail.colorId;
+        console.log('[DEBUG] colorId');
+        this.designType = event.detail.designType;
+        console.log('[DEBUG] designType');
+        this.season = event.detail.season;
+        console.log('[DEBUG] season');
+        this.style = event.detail.style;
+        console.log('[DEBUG] style');
+        
+        console.log(
+            '[DEBUG] category: ' + this.category + ', subCategory: ' + this.subCategory + ', colorId: ' + this.colorId +
+            ', designType: ' + this.designType + ', season: ' + this.season + ', style: ' + this.style
+        );
     }
 }

@@ -32,16 +32,22 @@ export default class ViewItem extends LightningElement {
             return;
         }
         console.log('[DEBUG] viewItem handleGenerate call');
+        console.log('[DEBUG] category: ' + this.item.MZ_Category__c.value);
+        console.log('[DEBUG] subCategory: ' + this.item.MZ_SubCategory__c.value);
+        console.log('[DEBUG] colorId: ' + this.item.MZ_Color__r.value.fields.Id.value);
+        console.log('[DEBUG] designType: ' + this.item.MZ_Design__r.value.fields.MZ_DesignType__c.value);
+        console.log('[DEBUG] season: ' + this.season);
+        console.log('[DEBUG] style: ' + this.item.MZ_Style__c.value);
         const event = new CustomEvent(
-            'genarate',
+            'generate',
             {
                 detail: {
-                    category: this.item.MZ_Category__c,
-                    subCategory: this.item.MZ_SubCategory__c,
-                    colorId: this.item.MZ_Color__r.Id,
-                    designType: this.item.MZ_Design__r.MZ_DesignType__c,
+                    category: this.item.MZ_Category__c.value,
+                    subCategory: this.item.MZ_SubCategory__c.value,
+                    colorId: this.item.MZ_Color__r.value.fields.Id.value,
+                    designType: this.item.MZ_Design__r.value.fields.MZ_DesignType__c.value,
                     season: this.season,
-                    style: this.item.MZ_Style__c
+                    style: this.item.MZ_Style__c.value
                 }
             }
         );

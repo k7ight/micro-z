@@ -2,7 +2,7 @@
     <lightning-layout multiple-rows="true">
         <lightning-layout-item padding="around-small" size="12" medium-device-size="5" large-device-size="3">
             <template lwc:if={item.data}>
-                <c-view-item item={item.data.fields} ongenarate={handleGenerate}></c-view-item>
+                <c-view-item item={item.data.fields} ongenerate={handleGenerate}></c-view-item>
             </template>
         </lightning-layout-item>
         <lightning-layout-item padding="around-small" size="12" medium-device-size="7" large-device-size="9">
@@ -29,6 +29,9 @@
                             <c-coordinate coordinate={coordinate} oncheck={handleCheck}></c-coordinate>
                         </lightning-layout-item>
                     </template> -->
+                    <lightning-layout-item padding="around-small" size="12">
+                        <c-coordinate></c-coordinate>
+                    </lightning-layout-item>
                 </lightning-layout>
             </lightning-card>
         </lightning-layout-item>
