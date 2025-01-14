@@ -1,8 +1,8 @@
 <template>
     <lightning-layout>
         <lightning-layout-item padding="around-small" size="12" medium-device-size="5" large-device-size="3">
-            <template lwc:if={item}>
-                <c-view-item item={item.fields}></c-view-item>
+            <template lwc:if={item.data}>
+                <c-view-item item={item.data.fields} ongenarate={handleGenerate}></c-view-item>
             </template>
         </lightning-layout-item>
         <lightning-layout-item padding="around-small" size="12" medium-device-size="7" large-device-size="9">

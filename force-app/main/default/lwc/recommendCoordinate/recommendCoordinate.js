@@ -14,7 +14,7 @@ const FIELDS = [CATEGORY_FIELD, SUBCATEGORY_FIELD, COLORID_FIELD, DESIGNTYPE_FIE
 
 export default class RecommendCoordinate extends LightningElement {
     recordId;
-    item;
+    // item;
  
     @wire(CurrentPageReference)
     getPageReference(pageRef) {
@@ -28,13 +28,19 @@ export default class RecommendCoordinate extends LightningElement {
     }
 
     @wire(getRecord, {recordId: '$recordId', fields: FIELDS})
-    wiredItem({data, error}) {
-        if(data) {
-            console.log('[DEBUG] getRecord data: ' + JSON.stringify(data));
-            this.item = data;
-        } else if(error) {
-            console.log('[DEBUG] getRecord error: ' + JSON.stringify(error));
-            this.item = null;
-        }
+    item;
+    // wiredItem({data, error}) {
+    //     if(data) {
+    //         console.log('[DEBUG] getRecord data: ' + JSON.stringify(data));
+    //         this.item = data;
+    //     } else if(error) {
+    //         console.log('[DEBUG] getRecord error: ' + JSON.stringify(error));
+    //         this.item = null;
+    //     }
+    // }
+
+    handleGenerate(event) {
+        console.log('[DEBUG] recommendCoordinate handleGenerate call');
+        console.log('[DEBUG] event: ' + JSON.stringify(event.detail));
     }
 }
