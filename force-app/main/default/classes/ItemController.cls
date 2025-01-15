@@ -70,19 +70,24 @@ public class ItemController {
         List<MZ_Coordinate__c> recommendCoordList = new List<MZ_Coordinate__c>();
         
         // アウター、トップス、インナー、ボトムス、シューズのリスト取得
-        List<MZ_Item__c> outers = [SELECT Id FROM MZ_Item__c WHERE MZ_Category__c = 'アウター' AND MZ_Season__c = :season];
-        List<MZ_Item__c> outerTops = [SELECT Id FROM MZ_Item__c 
+        List<MZ_Item__c> outers = [SELECT Id, MZ_Color__r.Id, MZ_Color__r.MZ_ColorType__c, MZ_Design__r.MZ_DesignType__c, MZ_Style__c FROM MZ_Item__c 
+                                   WHERE MZ_Category__c = 'アウター' AND MZ_Season__c INCLUDES(:season)];
+        List<MZ_Item__c> outerTops = [SELECT Id, MZ_Color__r.Id, MZ_Color__r.MZ_ColorType__c, MZ_Design__r.MZ_DesignType__c, MZ_Style__c FROM MZ_Item__c 
                                       WHERE MZ_SubCategory__c IN ('ニット', 'カーディガン', 'ベスト', 'アンサンブル', 'パーカー', 'スウェット', 'チュニック', 'その他トップス') 
-                                      AND MZ_Season__c = :season];
-        List<MZ_Item__c> innerTops = [SELECT Id FROM MZ_Item__c WHERE MZ_SubCategory__c IN ('シャツ・ブラウス', 'ポロシャツ') 
-                                      AND MZ_Season__c = :season];
+                                      AND MZ_Season__c INCLUDES(:season)];
+        List<MZ_Item__c> innerTops = [SELECT Id, MZ_Color__r.Id, MZ_Color__r.MZ_ColorType__c, MZ_Design__r.MZ_DesignType__c, MZ_Style__c FROM MZ_Item__c 
+                                      WHERE MZ_SubCategory__c IN ('シャツ・ブラウス', 'ポロシャツ') AND MZ_Season__c INCLUDES(:season)];
         List<MZ_Item__c> allTops = new List<MZ_Item__c>();
         allTops.addAll(outerTops);
         allTops.addAll(innerTops);
-		List<MZ_Item__c> topsInners = [SELECT Id FROM MZ_Item__c WHERE MZ_SubCategory__c IN ('シャツ・ブラウス', 'Tシャツ・カットソー') AND MZ_Season__c = :season];
-        List<MZ_Item__c> inners = [SELECT Id FROM MZ_Item__c WHERE MZ_SubCategory__c IN ('Tシャツ・カットソー', 'タンクトップ') AND MZ_Season__c = :season];
-        List<MZ_Item__c> bottoms = [SELECT Id FROM MZ_Item__c WHERE MZ_Category__c IN ('パンツ', 'スカート') AND MZ_Season__c = :season];
-        List<MZ_Item__c> shoes = [SELECT Id FROM MZ_Item__c WHERE MZ_Category__c = 'シューズ' AND MZ_Season__c = :season];
+		List<MZ_Item__c> topsInners = [SELECT Id, MZ_Color__r.Id, MZ_Color__r.MZ_ColorType__c, MZ_Design__r.MZ_DesignType__c, MZ_Style__c FROM MZ_Item__c 
+                                       WHERE MZ_SubCategory__c IN ('シャツ・ブラウス', 'Tシャツ・カットソー') AND MZ_Season__c INCLUDES(:season)];
+        List<MZ_Item__c> inners = [SELECT Id, MZ_Color__r.Id, MZ_Color__r.MZ_ColorType__c, MZ_Design__r.MZ_DesignType__c, MZ_Style__c FROM MZ_Item__c 
+                                   WHERE MZ_SubCategory__c IN ('Tシャツ・カットソー', 'タンクトップ') AND MZ_Season__c INCLUDES(:season)];
+        List<MZ_Item__c> bottoms = [SELECT Id, MZ_Color__r.Id, MZ_Color__r.MZ_ColorType__c, MZ_Design__r.MZ_DesignType__c, MZ_Style__c FROM MZ_Item__c 
+                                    WHERE MZ_Category__c IN ('パンツ', 'スカート') AND MZ_Season__c INCLUDES(:season)];
+        List<MZ_Item__c> shoes = [SELECT Id, MZ_Color__r.Id, MZ_Color__r.MZ_ColorType__c, MZ_Design__r.MZ_DesignType__c, MZ_Style__c FROM MZ_Item__c 
+                                  WHERE MZ_Category__c = 'シューズ' AND MZ_Season__c INCLUDES(:season)]; 
         
         // Idが存在する場合は該当カテゴリを固定アイテムにセット
         outers = setSelectedItem(recordId, outers);
@@ -92,18 +97,18 @@ public class ItemController {
         topsInners = setSelectedItem(recordId, topsInners);
         inners = setSelectedItem(recordId, inners);
         bottoms = setSelectedItem(recordId, bottoms);
-        shoes = setSelectedItem(recordId, shoes);
+        shoes = setSelectedItem(recordId, shoes);    
         
         // カラーマッチングテーブルを取得
-        List<MZ_ColorMatching__c> colorMatchingTable = [SELECT Id, MZ_Color1__r.Id, MZ_Color2__r.Id, MZ_MatchingScore__c FROM MZ_ColorMatching__c];
+        List<MZ_ColorMatching__c> colorMatchingTable = [SELECT Id, MZ_Color1__c, MZ_Color2__c, MZ_MatchingScore__c FROM MZ_ColorMatching__c];
         
         // シーズンに応じたコーデパターンをセット
         switch on season {
             when '春', '秋' {
                 outerList.add(outers);
-                outerList.add(Null);
-                outerList.add(Null);
-            	topsList.add(Null);
+                outerList.add(null);
+                outerList.add(null);
+            	topsList.add(null);
                 topsList.add(outerTops);
                 topsList.add(innerTops);
                 innerList.add(topsInners);
@@ -118,11 +123,11 @@ public class ItemController {
             }
             when '夏' {
                 outerList.add(outers);
-                outerList.add(Null);
-                outerList.add(Null);
-            	topsList.add(Null);
+                outerList.add(null);
+                outerList.add(null);
+            	topsList.add(null);
                 topsList.add(allTops);
-                topsList.add(Null);
+                topsList.add(null);
                 innerList.add(inners);
                 innerList.add(inners);
                 innerList.add(inners);
@@ -150,28 +155,141 @@ public class ItemController {
             }
         }
         
+        System.debug('outerList: ' + outerList);
+        System.debug('topsList: ' + topsList);
+        System.debug('innerList: ' + innerList);
+        System.debug('bottomsList: ' + bottomsList);
+        System.debug('shoesList: ' + shoesList);
+        
         // outerList[i]〜shoesList[i]（レコードリスト）からcoordList[i]（レコードリスト）を総当りで作成
         for(Integer i = 0; i < outerList.size(); i++) {
             List<MZ_Coordinate__c> coordinates = new List<MZ_Coordinate__c>();
-            for(MZ_Item__c otrs : outerList[i]) {
+            if(outerList[i] != null) {
+                for(MZ_Item__c otrs : outerList[i]) {
+                    if(topsList[i] != null) {
+                        for(MZ_Item__c tps: topsList[i]) {
+                            for(MZ_Item__c inrs: innerList[i]) {
+                                for(MZ_Item__c btms: bottomsList[i]) {
+                                    for(MZ_Item__c shs: shoesList[i]) {
+                                        MZ_Coordinate__c coordinate = new MZ_Coordinate__c(MZ_Outer__c = otrs.Id, MZ_Tops__c = tps.Id, MZ_Inner__c = inrs.Id, MZ_Bottoms__c = btms.Id, MZ_Shoes__c = shs.Id);
+
+                                        coordinate.MZ_Outer__r = new MZ_Item__c(Id = otrs.Id, MZ_Style__c = otrs.MZ_Style__c);
+                                        coordinate.MZ_Outer__r.MZ_Color__r = new MZ_Color__c(Id = otrs.MZ_Color__r.Id, MZ_ColorType__c = otrs.MZ_Color__r.MZ_ColorType__c);
+                                        coordinate.MZ_Outer__r.MZ_Design__r = new MZ_Design__c(Id = otrs.MZ_Design__r.Id, MZ_DesignType__c = otrs.MZ_Design__r.MZ_DesignType__c);
+                                        
+                                        coordinate.MZ_Tops__r = new MZ_Item__c(Id = tps.Id, MZ_Style__c = tps.MZ_Style__c);
+                                        coordinate.MZ_Tops__r.MZ_Color__r = new MZ_Color__c(Id = tps.MZ_Color__r.Id, MZ_ColorType__c = tps.MZ_Color__r.MZ_ColorType__c);
+                                        coordinate.MZ_Tops__r.MZ_Design__r = new MZ_Design__c(Id = tps.MZ_Design__r.Id, MZ_DesignType__c = tps.MZ_Design__r.MZ_DesignType__c);
+                                        
+                                        coordinate.MZ_Inner__r = new MZ_Item__c(Id = inrs.Id, MZ_Style__c = inrs.MZ_Style__c);
+                                        coordinate.MZ_Inner__r.MZ_Color__r = new MZ_Color__c(Id = inrs.MZ_Color__r.Id, MZ_ColorType__c = inrs.MZ_Color__r.MZ_ColorType__c);
+                                        coordinate.MZ_Inner__r.MZ_Design__r = new MZ_Design__c(Id = inrs.MZ_Design__r.Id, MZ_DesignType__c = inrs.MZ_Design__r.MZ_DesignType__c);
+
+                                        coordinate.MZ_Bottoms__r = new MZ_Item__c(Id = btms.Id, MZ_Style__c = btms.MZ_Style__c);
+                                        coordinate.MZ_Bottoms__r.MZ_Color__r = new MZ_Color__c(Id = btms.MZ_Color__r.Id, MZ_ColorType__c = btms.MZ_Color__r.MZ_ColorType__c);
+                                        coordinate.MZ_Bottoms__r.MZ_Design__r = new MZ_Design__c(Id = btms.MZ_Design__r.Id, MZ_DesignType__c = btms.MZ_Design__r.MZ_DesignType__c);
+                                        
+                                        coordinate.MZ_Shoes__r = new MZ_Item__c(Id = shs.Id, MZ_Style__c = shs.MZ_Style__c);
+                                        coordinate.MZ_Shoes__r.MZ_Color__r = new MZ_Color__c(Id = shs.MZ_Color__r.Id, MZ_ColorType__c = shs.MZ_Color__r.MZ_ColorType__c);
+                                        coordinate.MZ_Shoes__r.MZ_Design__r = new MZ_Design__c(Id = shs.MZ_Design__r.Id, MZ_DesignType__c = shs.MZ_Design__r.MZ_DesignType__c);
+                                        
+                                        System.debug('coordinate: ' + coordinate);
+                                        coordinate.MZ_CoordinateScore__c = calcCoordinateScore(coordinate, colorMatchingTable);
+                                        coordinates.add(coordinate);
+                                        System.debug('coordinates: ' + coordinates);
+                                    }
+                                }
+                            }
+                        }
+                    } else {
+                        for(MZ_Item__c inrs: innerList[i]) {
+                            for(MZ_Item__c btms: bottomsList[i]) {
+                                for(MZ_Item__c shs: shoesList[i]) {
+                                    MZ_Coordinate__c coordinate = new MZ_Coordinate__c(MZ_Outer__c = otrs.Id, MZ_Inner__c = inrs.Id, MZ_Bottoms__c = btms.Id, MZ_Shoes__c = shs.Id);
+                                    
+                                    coordinate.MZ_Outer__r = new MZ_Item__c(Id = otrs.Id, MZ_Color__c = otrs.MZ_Color__r.Id, MZ_Style__c = otrs.MZ_Style__c);
+                                    coordinate.MZ_Outer__r.MZ_Color__r = new MZ_Color__c(Id = otrs.MZ_Color__r.Id, MZ_ColorType__c = otrs.MZ_Color__r.MZ_ColorType__c);
+                                    coordinate.MZ_Outer__r.MZ_Design__r = new MZ_Design__c(Id = otrs.MZ_Design__r.Id, MZ_DesignType__c = otrs.MZ_Design__r.MZ_DesignType__c);
+                                    
+                                    coordinate.MZ_Inner__r = new MZ_Item__c(Id = inrs.Id, MZ_Style__c = inrs.MZ_Style__c);
+                                    coordinate.MZ_Inner__r.MZ_Color__r = new MZ_Color__c(Id = inrs.MZ_Color__r.Id, MZ_ColorType__c = inrs.MZ_Color__r.MZ_ColorType__c);
+                                    coordinate.MZ_Inner__r.MZ_Design__r = new MZ_Design__c(Id = inrs.MZ_Design__r.Id, MZ_DesignType__c = inrs.MZ_Design__r.MZ_DesignType__c);
+                                    
+                                    coordinate.MZ_Bottoms__r = new MZ_Item__c(Id = btms.Id, MZ_Style__c = btms.MZ_Style__c);
+                                    coordinate.MZ_Bottoms__r.MZ_Color__r = new MZ_Color__c(Id = btms.MZ_Color__r.Id, MZ_ColorType__c = btms.MZ_Color__r.MZ_ColorType__c);
+                                    coordinate.MZ_Bottoms__r.MZ_Design__r = new MZ_Design__c(Id = btms.MZ_Design__r.Id, MZ_DesignType__c = btms.MZ_Design__r.MZ_DesignType__c);
+                                    
+                                    coordinate.MZ_Shoes__r = new MZ_Item__c(Id = shs.Id, MZ_Style__c = shs.MZ_Style__c);
+                                    coordinate.MZ_Shoes__r.MZ_Color__r = new MZ_Color__c(Id = shs.MZ_Color__r.Id, MZ_ColorType__c = shs.MZ_Color__r.MZ_ColorType__c);
+                                    coordinate.MZ_Shoes__r.MZ_Design__r = new MZ_Design__c(Id = shs.MZ_Design__r.Id, MZ_DesignType__c = shs.MZ_Design__r.MZ_DesignType__c);
+                                    
+                                    System.debug('coordinate: ' + coordinate);
+                                    coordinate.MZ_CoordinateScore__c = calcCoordinateScore(coordinate, colorMatchingTable);
+                                    coordinates.add(coordinate);
+                                    System.debug('coordinates: ' + coordinates);
+                                }
+                            }
+                        }
+                    }
+                }
+            } else if(topsList[i] != null) {
                 for(MZ_Item__c tps: topsList[i]) {
                     for(MZ_Item__c inrs: innerList[i]) {
                         for(MZ_Item__c btms: bottomsList[i]) {
                             for(MZ_Item__c shs: shoesList[i]) {
-                                MZ_Coordinate__c coordinate = new MZ_Coordinate__c();
-                                coordinate.MZ_Outer__r.Id = otrs.Id;
-                                coordinate.MZ_Tops__r.Id = tps.Id;
-                                coordinate.MZ_Inner__r.Id = inrs.Id;
-                                coordinate.MZ_Bottoms__r.Id = btms.Id;
-                                coordinate.MZ_Shoes__r.Id = shs.Id;
+                                MZ_Coordinate__c coordinate = new MZ_Coordinate__c(MZ_Tops__c = tps.Id, MZ_Inner__c = inrs.Id, MZ_Bottoms__c = btms.Id, MZ_Shoes__c = shs.Id);
+                                
+                                coordinate.MZ_Tops__r = new MZ_Item__c(Id = tps.Id, MZ_Style__c = tps.MZ_Style__c);
+                                coordinate.MZ_Tops__r.MZ_Color__r = new MZ_Color__c(Id = tps.MZ_Color__r.Id, MZ_ColorType__c = tps.MZ_Color__r.MZ_ColorType__c);
+                                coordinate.MZ_Tops__r.MZ_Design__r = new MZ_Design__c(Id = tps.MZ_Design__r.Id, MZ_DesignType__c = tps.MZ_Design__r.MZ_DesignType__c);
+                                
+                                coordinate.MZ_Inner__r = new MZ_Item__c(Id = inrs.Id, MZ_Style__c = inrs.MZ_Style__c);
+                                coordinate.MZ_Inner__r.MZ_Color__r = new MZ_Color__c(Id = inrs.MZ_Color__r.Id, MZ_ColorType__c = inrs.MZ_Color__r.MZ_ColorType__c);
+                                coordinate.MZ_Inner__r.MZ_Design__r = new MZ_Design__c(Id = inrs.MZ_Design__r.Id, MZ_DesignType__c = inrs.MZ_Design__r.MZ_DesignType__c);
+                                
+                                coordinate.MZ_Bottoms__r = new MZ_Item__c(Id = btms.Id, MZ_Style__c = btms.MZ_Style__c);
+                                coordinate.MZ_Bottoms__r.MZ_Color__r = new MZ_Color__c(Id = btms.MZ_Color__r.Id, MZ_ColorType__c = btms.MZ_Color__r.MZ_ColorType__c);
+                                coordinate.MZ_Bottoms__r.MZ_Design__r = new MZ_Design__c(Id = btms.MZ_Design__r.Id, MZ_DesignType__c = btms.MZ_Design__r.MZ_DesignType__c);
+                                
+                                coordinate.MZ_Shoes__r = new MZ_Item__c(Id = shs.Id, MZ_Style__c = shs.MZ_Style__c);
+                                coordinate.MZ_Shoes__r.MZ_Color__r = new MZ_Color__c(Id = shs.MZ_Color__r.Id, MZ_ColorType__c = shs.MZ_Color__r.MZ_ColorType__c);
+                                coordinate.MZ_Shoes__r.MZ_Design__r = new MZ_Design__c(Id = shs.MZ_Design__r.Id, MZ_DesignType__c = shs.MZ_Design__r.MZ_DesignType__c);
+                                
+                                System.debug('coordinate: ' + coordinate);
                                 coordinate.MZ_CoordinateScore__c = calcCoordinateScore(coordinate, colorMatchingTable);
                                 coordinates.add(coordinate);
+                                System.debug('coordinates: ' + coordinates);
                             }
                         }
                     }
-                }            	
+                }
+            } else {
+                for(MZ_Item__c inrs: innerList[i]) {
+                    for(MZ_Item__c btms: bottomsList[i]) {
+                        for(MZ_Item__c shs: shoesList[i]) {
+                            MZ_Coordinate__c coordinate = new MZ_Coordinate__c(MZ_Inner__c = inrs.Id, MZ_Bottoms__c = btms.Id, MZ_Shoes__c = shs.Id);
+                            coordinate.MZ_Inner__r = new MZ_Item__c(Id = inrs.Id, MZ_Style__c = inrs.MZ_Style__c);
+                            coordinate.MZ_Inner__r.MZ_Color__r = new MZ_Color__c(Id = inrs.MZ_Color__r.Id, MZ_ColorType__c = inrs.MZ_Color__r.MZ_ColorType__c);
+                            coordinate.MZ_Inner__r.MZ_Design__r = new MZ_Design__c(Id = inrs.MZ_Design__r.Id, MZ_DesignType__c = inrs.MZ_Design__r.MZ_DesignType__c);
+                            
+                            coordinate.MZ_Bottoms__r = new MZ_Item__c(Id = btms.Id, MZ_Style__c = btms.MZ_Style__c);
+                            coordinate.MZ_Bottoms__r.MZ_Color__r = new MZ_Color__c(Id = btms.MZ_Color__r.Id, MZ_ColorType__c = btms.MZ_Color__r.MZ_ColorType__c);
+                            coordinate.MZ_Bottoms__r.MZ_Design__r = new MZ_Design__c(Id = btms.MZ_Design__r.Id, MZ_DesignType__c = btms.MZ_Design__r.MZ_DesignType__c);
+                            
+                            coordinate.MZ_Shoes__r = new MZ_Item__c(Id = shs.Id, MZ_Style__c = shs.MZ_Style__c);
+                            coordinate.MZ_Shoes__r.MZ_Color__r = new MZ_Color__c(Id = shs.MZ_Color__r.Id, MZ_ColorType__c = shs.MZ_Color__r.MZ_ColorType__c);
+                            coordinate.MZ_Shoes__r.MZ_Design__r = new MZ_Design__c(Id = shs.MZ_Design__r.Id, MZ_DesignType__c = shs.MZ_Design__r.MZ_DesignType__c);
+                            
+                            System.debug('coordinate: ' + coordinate);
+                            coordinate.MZ_CoordinateScore__c = calcCoordinateScore(coordinate, colorMatchingTable);
+                            coordinates.add(coordinate);
+                            System.debug('coordinates: ' + coordinates);
+                        }
+                    }
+                }
             }
             coordList.add(coordinates);
+            System.debug('coordList: ' + coordList);
         }
         // コーデパターン毎にスコア順に並び替え、上位100件を取得
         for(Integer i = 0; i < outerList.size(); i++) {
@@ -203,6 +321,8 @@ public class ItemController {
         Integer casualCnt = 0;
         Decimal formalRate = 0;
         
+        System.debug('coordinate: ' + coordinate);
+        
         List<MZ_Item__c> itemList = new List<MZ_Item__c>{
             coordinate.MZ_Outer__r, 
             coordinate.MZ_Tops__r,
@@ -216,12 +336,14 @@ public class ItemController {
             for(Integer i = 0; i < itemList.size(); i++) {
                 for(Integer j = 0; j < itemList.size(); j++) {
                     if(i < j) {
-                        if(itemList[i].MZ_Color__r.Id == cm.MZ_Color1__r.Id && itemList[j].MZ_Color__r.Id == cm.MZ_Color2__r.Id) {
-                            score += Integer.valueOf(cm.MZ_MatchingScore__c);
-                        } else if(itemList[i].MZ_Color__r.Id == cm.MZ_Color2__r.Id && itemList[j].MZ_Color__r.Id == cm.MZ_Color1__r.Id) {
-                            score += Integer.valueOf(cm.MZ_MatchingScore__c);
-                        } else {
-                            System.debug('[ERROR] ColorMatching is not registered.');
+                        if(itemList[i] != null && itemList[j] != null) {
+                            if(itemList[i].MZ_Color__c == cm.MZ_Color1__c && itemList[j].MZ_Color__c == cm.MZ_Color2__c) {
+                                score += Integer.valueOf(cm.MZ_MatchingScore__c);
+                            } else if(itemList[i].MZ_Color__c == cm.MZ_Color2__c && itemList[j].MZ_Color__c == cm.MZ_Color1__c) {
+                                score += Integer.valueOf(cm.MZ_MatchingScore__c);
+                            } else {
+                                // System.debug('[ERROR] ColorMatching is not registered.');
+                            }
                         }
                     }
                 }
@@ -230,16 +352,18 @@ public class ItemController {
         
         // アクセントカラー、デザイン有無、フォーマル/カジュアル数を集計
         for(MZ_Item__c item: itemList) {
-            if(item.MZ_Color__r.MZ_ColorType__c == 'アクセント') {
-            	accentCnt += 1;
-            }
-            if(item.MZ_Design__r.MZ_DesignType__c == 'デザイン') {
-                designCnt += 1;
-            }
-            if(item.MZ_Style__c == 'フォーマル') {
-                formalCnt += 1;
-            } else if (item.MZ_Style__c == 'カジュアル') {
-                casualCnt += 1;
+            if(item != null) {
+                if(item.MZ_Color__r.MZ_ColorType__c == 'アクセント') {
+                    accentCnt += 1;
+                }
+                if(item.MZ_Design__r.MZ_DesignType__c == 'デザイン') {
+                    designCnt += 1;
+                }
+                if(item.MZ_Style__c == 'フォーマル') {
+                    formalCnt += 1;
+                } else if (item.MZ_Style__c == 'カジュアル') {
+                    casualCnt += 1;
+                }
             }
         }
         
