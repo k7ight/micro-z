@@ -79,11 +79,8 @@ export default class FilterItem extends LightningElement {
         this.handleFilterSet();
     }
     handleCategoryChange(event) {
-        // console.log('[DEBUG] handleCategoryChange call');
         this.category = event.detail.value;
         this.handleFilterSet();
-
-        // console.log('[DEBUG] category=' + this.category);
     }
     handleSubCategoryChange(event) {
         this.subCategory = event.detail.value;
@@ -102,10 +99,6 @@ export default class FilterItem extends LightningElement {
         this.handleFilterSet();
     }
     handleFilterSet() {
-        // console.log('[DEBUG] filterItem handleFilterSet call');
-        // console.log('[DEBUG] category, subCategory, colorGroup, designType, season, searchKey: '
-        //     + this.category + ',' + this.subCategory + ',' + this.colorGroup + ',' + this.designType + ','
-        //     + this.season +  ',' + this.searchKey);
         const event = new CustomEvent(
             'filterset',
             {
@@ -123,7 +116,6 @@ export default class FilterItem extends LightningElement {
     }
 
     handleFilterClear() {
-        // console.log('[DEBUG] filterItem handleFilterClear call');
         this.category = '';
         this.subCategory = '';
         this.colorGroup = '';

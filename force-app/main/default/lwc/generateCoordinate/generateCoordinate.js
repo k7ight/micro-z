@@ -4,8 +4,6 @@ export default class GenerateCoordinate extends LightningElement {
     @api item;
 
     handleGenerateCoordinate() {
-        console.log('[DEBUG] handleGenerateCoordinate call');
-        console.log('[DEBUG] this.item.Id:' + this.item.Id);
         const pageRef = {
             type: 'standard__navItemPage',
             attributes: {
@@ -15,7 +13,6 @@ export default class GenerateCoordinate extends LightningElement {
                 c__recordId: this.item.Id
             }
         };
-        console.log('[DEBUG] pageRef:' + pageRef.state.c__recordId);
        
         const event = new CustomEvent('navigate', {
             detail: pageRef,
