@@ -15,7 +15,6 @@ const FIELDS = [CATEGORY_FIELD, SUBCATEGORY_FIELD, COLORID_FIELD, DESIGNTYPE_FIE
 
 export default class RecommendCoordinate extends LightningElement {
     recordId;
-    // item;
     category;
     subCategory;
     colorId;
@@ -52,6 +51,15 @@ export default class RecommendCoordinate extends LightningElement {
         season: '$season'
     })
     recommendCoordinates;
+    // wiredCoordinates({data, error}) {
+    //     if(data) {
+    //         console.log('[DEBUG] generateCoordinates data: ' + JSON.stringify(data));
+    //         this.recommendCoordinates = data;
+    //     } else if(error) {
+    //         console.log('[DEBUG] generateCoordinates error: ' + JSON.stringify(error));
+    //         this.recommendCoordinates = null;
+    //     }
+    // }
 
     handleGenerate(event) {
         console.log('[DEBUG] recommendCoordinate handleGenerate call');

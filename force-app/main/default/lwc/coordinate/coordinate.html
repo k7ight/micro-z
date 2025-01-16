@@ -1,30 +1,47 @@
 <template>
     <lightning-layout vertical-align="center">
         <lightning-layout-item padding="around-small" size="1">
-            <lightning-input type="checkbox-button" label="" name=""></lightning-input>
+            <div class="slds-align_absolute-center">
+                <lightning-input type="checkbox-button" label="" name=""></lightning-input>
+            </div>
         </lightning-layout-item>
         <lightning-layout-item padding="around-small" size="11">
             <lightning-layout multiple-rows="true" vertical-align="center">
+                <template lwc:if={coordinate.MZ_Outer__r}>
+                    <lightning-layout-item padding="around-small" size="6" medium-device-size="4" large-device-size="2">
+                        <div class="slds-box" style={outerImage}></div>
+                    </lightning-layout-item>
+                </template>
+                <template lwc:if={coordinate.MZ_Tops__r}>
+                    <lightning-layout-item padding="around-small" size="6" medium-device-size="4" large-device-size="2">
+                        <div class="slds-box" style={topsImage}></div>
+                    </lightning-layout-item>
+                </template>
+                <template lwc:if={coordinate.MZ_Inner__r}>
+                    <lightning-layout-item padding="around-small" size="6" medium-device-size="4" large-device-size="2">
+                        <div class="slds-box" style={innerImage}></div>
+                    </lightning-layout-item>
+                </template>
+                <template lwc:if={coordinate.MZ_Bottoms__r}>
+                    <lightning-layout-item padding="around-small" size="6" medium-device-size="4" large-device-size="2">
+                        <div class="slds-box" style={bottomsImage}></div>
+                    </lightning-layout-item>
+                </template>
+                <template lwc:if={coordinate.MZ_Shoes__r}>
+                    <lightning-layout-item padding="around-small" size="6" medium-device-size="4" large-device-size="2">
+                        <div class="slds-box" style={shoesImage}></div>
+                    </lightning-layout-item>
+                </template>
                 <lightning-layout-item padding="around-small" size="6" medium-device-size="4" large-device-size="2">
-                    <div class="slds-box" style={outerImage}></div>
-                </lightning-layout-item>
-                <lightning-layout-item padding="around-small" size="6" medium-device-size="4" large-device-size="2">
-                    <div class="slds-box" style={topsImage}></div>
-                </lightning-layout-item>
-                <lightning-layout-item padding="around-small" size="6" medium-device-size="4" large-device-size="2">
-                    <div class="slds-box" style={innerImage}></div>
-                </lightning-layout-item>
-                <lightning-layout-item padding="around-small" size="6" medium-device-size="4" large-device-size="2">
-                    <div class="slds-box" style={bottomsImage}></div>
-                </lightning-layout-item>
-                <lightning-layout-item padding="around-small" size="6" medium-device-size="4" large-device-size="2">
-                    <div class="slds-box" style={shoesImage}></div>
-                </lightning-layout-item>
-                <lightning-layout-item padding="around-small" size="6" medium-device-size="4" large-device-size="2">
-                    <div class="slds-box">
-                        <p class="slds-text-heading_medium slds-align_absolute-center">Score</p>
-                        <p class="slds-text-heading_medium slds-align_absolute-center">100</p>
+                    <div class="slds-align_absolute-center">
+                        <span class="slds-badge slds-theme_success">
+                            SCORE {coordinate.MZ_CoordinateScore__c}
+                        </span>
                     </div>
+                    <!-- <div class="slds-box" style="aspect-ratio: 1; display: flex; align-items: center;">
+                        <p class="slds-text-heading_medium slds-align_absolute-center">Score</p>
+                        <p class="slds-text-heading_medium slds-align_absolute-center">{coordinate.MZ_CoordinateScore__c}</p>
+                    </div> -->
                 </lightning-layout-item>
             </lightning-layout>
         </lightning-layout-item>

@@ -70,23 +70,23 @@ public class ItemController {
         List<MZ_Coordinate__c> recommendCoordList = new List<MZ_Coordinate__c>();
         
         // アウター、トップス、インナー、ボトムス、シューズのリスト取得
-        List<MZ_Item__c> outers = [SELECT Id, MZ_Color__r.Id, MZ_Color__r.MZ_ColorType__c, MZ_Design__r.MZ_DesignType__c, MZ_Style__c FROM MZ_Item__c 
+        List<MZ_Item__c> outers = [SELECT Id, MZ_Color__r.Id, MZ_Color__r.MZ_ColorType__c, MZ_Design__r.MZ_DesignType__c, MZ_Style__c, MZ_ItemURL__c FROM MZ_Item__c 
                                    WHERE MZ_Category__c = 'アウター' AND MZ_Season__c INCLUDES(:season)];
-        List<MZ_Item__c> outerTops = [SELECT Id, MZ_Color__r.Id, MZ_Color__r.MZ_ColorType__c, MZ_Design__r.MZ_DesignType__c, MZ_Style__c FROM MZ_Item__c 
+        List<MZ_Item__c> outerTops = [SELECT Id, MZ_Color__r.Id, MZ_Color__r.MZ_ColorType__c, MZ_Design__r.MZ_DesignType__c, MZ_Style__c, MZ_ItemURL__c FROM MZ_Item__c 
                                       WHERE MZ_SubCategory__c IN ('ニット', 'カーディガン', 'ベスト', 'アンサンブル', 'パーカー', 'スウェット', 'チュニック', 'その他トップス') 
                                       AND MZ_Season__c INCLUDES(:season)];
-        List<MZ_Item__c> innerTops = [SELECT Id, MZ_Color__r.Id, MZ_Color__r.MZ_ColorType__c, MZ_Design__r.MZ_DesignType__c, MZ_Style__c FROM MZ_Item__c 
+        List<MZ_Item__c> innerTops = [SELECT Id, MZ_Color__r.Id, MZ_Color__r.MZ_ColorType__c, MZ_Design__r.MZ_DesignType__c, MZ_Style__c, MZ_ItemURL__c FROM MZ_Item__c 
                                       WHERE MZ_SubCategory__c IN ('シャツ・ブラウス', 'ポロシャツ') AND MZ_Season__c INCLUDES(:season)];
         List<MZ_Item__c> allTops = new List<MZ_Item__c>();
         allTops.addAll(outerTops);
         allTops.addAll(innerTops);
-		List<MZ_Item__c> topsInners = [SELECT Id, MZ_Color__r.Id, MZ_Color__r.MZ_ColorType__c, MZ_Design__r.MZ_DesignType__c, MZ_Style__c FROM MZ_Item__c 
+		List<MZ_Item__c> topsInners = [SELECT Id, MZ_Color__r.Id, MZ_Color__r.MZ_ColorType__c, MZ_Design__r.MZ_DesignType__c, MZ_Style__c, MZ_ItemURL__c FROM MZ_Item__c 
                                        WHERE MZ_SubCategory__c IN ('シャツ・ブラウス', 'Tシャツ・カットソー') AND MZ_Season__c INCLUDES(:season)];
-        List<MZ_Item__c> inners = [SELECT Id, MZ_Color__r.Id, MZ_Color__r.MZ_ColorType__c, MZ_Design__r.MZ_DesignType__c, MZ_Style__c FROM MZ_Item__c 
+        List<MZ_Item__c> inners = [SELECT Id, MZ_Color__r.Id, MZ_Color__r.MZ_ColorType__c, MZ_Design__r.MZ_DesignType__c, MZ_Style__c, MZ_ItemURL__c FROM MZ_Item__c 
                                    WHERE MZ_SubCategory__c IN ('Tシャツ・カットソー', 'タンクトップ') AND MZ_Season__c INCLUDES(:season)];
-        List<MZ_Item__c> bottoms = [SELECT Id, MZ_Color__r.Id, MZ_Color__r.MZ_ColorType__c, MZ_Design__r.MZ_DesignType__c, MZ_Style__c FROM MZ_Item__c 
+        List<MZ_Item__c> bottoms = [SELECT Id, MZ_Color__r.Id, MZ_Color__r.MZ_ColorType__c, MZ_Design__r.MZ_DesignType__c, MZ_Style__c, MZ_ItemURL__c FROM MZ_Item__c 
                                     WHERE MZ_Category__c IN ('パンツ', 'スカート') AND MZ_Season__c INCLUDES(:season)];
-        List<MZ_Item__c> shoes = [SELECT Id, MZ_Color__r.Id, MZ_Color__r.MZ_ColorType__c, MZ_Design__r.MZ_DesignType__c, MZ_Style__c FROM MZ_Item__c 
+        List<MZ_Item__c> shoes = [SELECT Id, MZ_Color__r.Id, MZ_Color__r.MZ_ColorType__c, MZ_Design__r.MZ_DesignType__c, MZ_Style__c, MZ_ItemURL__c FROM MZ_Item__c 
                                   WHERE MZ_Category__c = 'シューズ' AND MZ_Season__c INCLUDES(:season)]; 
         
         // Idが存在する場合は該当カテゴリを固定アイテムにセット
@@ -173,23 +173,23 @@ public class ItemController {
                                     for(MZ_Item__c shs: shoesList[i]) {
                                         MZ_Coordinate__c coordinate = new MZ_Coordinate__c(MZ_Outer__c = otrs.Id, MZ_Tops__c = tps.Id, MZ_Inner__c = inrs.Id, MZ_Bottoms__c = btms.Id, MZ_Shoes__c = shs.Id);
 
-                                        coordinate.MZ_Outer__r = new MZ_Item__c(Id = otrs.Id, MZ_Style__c = otrs.MZ_Style__c);
+                                        coordinate.MZ_Outer__r = new MZ_Item__c(Id = otrs.Id, MZ_Style__c = otrs.MZ_Style__c, MZ_ItemURLText__c = otrs.MZ_ItemURL__c);
                                         coordinate.MZ_Outer__r.MZ_Color__r = new MZ_Color__c(Id = otrs.MZ_Color__r.Id, MZ_ColorType__c = otrs.MZ_Color__r.MZ_ColorType__c);
                                         coordinate.MZ_Outer__r.MZ_Design__r = new MZ_Design__c(Id = otrs.MZ_Design__r.Id, MZ_DesignType__c = otrs.MZ_Design__r.MZ_DesignType__c);
                                         
-                                        coordinate.MZ_Tops__r = new MZ_Item__c(Id = tps.Id, MZ_Style__c = tps.MZ_Style__c);
+                                        coordinate.MZ_Tops__r = new MZ_Item__c(Id = tps.Id, MZ_Style__c = tps.MZ_Style__c, MZ_ItemURLText__c = tps.MZ_ItemURL__c);
                                         coordinate.MZ_Tops__r.MZ_Color__r = new MZ_Color__c(Id = tps.MZ_Color__r.Id, MZ_ColorType__c = tps.MZ_Color__r.MZ_ColorType__c);
                                         coordinate.MZ_Tops__r.MZ_Design__r = new MZ_Design__c(Id = tps.MZ_Design__r.Id, MZ_DesignType__c = tps.MZ_Design__r.MZ_DesignType__c);
                                         
-                                        coordinate.MZ_Inner__r = new MZ_Item__c(Id = inrs.Id, MZ_Style__c = inrs.MZ_Style__c);
+                                        coordinate.MZ_Inner__r = new MZ_Item__c(Id = inrs.Id, MZ_Style__c = inrs.MZ_Style__c, MZ_ItemURLText__c = inrs.MZ_ItemURL__c);
                                         coordinate.MZ_Inner__r.MZ_Color__r = new MZ_Color__c(Id = inrs.MZ_Color__r.Id, MZ_ColorType__c = inrs.MZ_Color__r.MZ_ColorType__c);
                                         coordinate.MZ_Inner__r.MZ_Design__r = new MZ_Design__c(Id = inrs.MZ_Design__r.Id, MZ_DesignType__c = inrs.MZ_Design__r.MZ_DesignType__c);
 
-                                        coordinate.MZ_Bottoms__r = new MZ_Item__c(Id = btms.Id, MZ_Style__c = btms.MZ_Style__c);
+                                        coordinate.MZ_Bottoms__r = new MZ_Item__c(Id = btms.Id, MZ_Style__c = btms.MZ_Style__c, MZ_ItemURLText__c = btms.MZ_ItemURL__c);
                                         coordinate.MZ_Bottoms__r.MZ_Color__r = new MZ_Color__c(Id = btms.MZ_Color__r.Id, MZ_ColorType__c = btms.MZ_Color__r.MZ_ColorType__c);
                                         coordinate.MZ_Bottoms__r.MZ_Design__r = new MZ_Design__c(Id = btms.MZ_Design__r.Id, MZ_DesignType__c = btms.MZ_Design__r.MZ_DesignType__c);
                                         
-                                        coordinate.MZ_Shoes__r = new MZ_Item__c(Id = shs.Id, MZ_Style__c = shs.MZ_Style__c);
+                                        coordinate.MZ_Shoes__r = new MZ_Item__c(Id = shs.Id, MZ_Style__c = shs.MZ_Style__c, MZ_ItemURLText__c = shs.MZ_ItemURL__c);
                                         coordinate.MZ_Shoes__r.MZ_Color__r = new MZ_Color__c(Id = shs.MZ_Color__r.Id, MZ_ColorType__c = shs.MZ_Color__r.MZ_ColorType__c);
                                         coordinate.MZ_Shoes__r.MZ_Design__r = new MZ_Design__c(Id = shs.MZ_Design__r.Id, MZ_DesignType__c = shs.MZ_Design__r.MZ_DesignType__c);
                                         
@@ -207,19 +207,19 @@ public class ItemController {
                                 for(MZ_Item__c shs: shoesList[i]) {
                                     MZ_Coordinate__c coordinate = new MZ_Coordinate__c(MZ_Outer__c = otrs.Id, MZ_Inner__c = inrs.Id, MZ_Bottoms__c = btms.Id, MZ_Shoes__c = shs.Id);
                                     
-                                    coordinate.MZ_Outer__r = new MZ_Item__c(Id = otrs.Id, MZ_Color__c = otrs.MZ_Color__r.Id, MZ_Style__c = otrs.MZ_Style__c);
+                                    coordinate.MZ_Outer__r = new MZ_Item__c(Id = otrs.Id, MZ_Style__c = otrs.MZ_Style__c, MZ_ItemURLText__c = otrs.MZ_ItemURL__c);
                                     coordinate.MZ_Outer__r.MZ_Color__r = new MZ_Color__c(Id = otrs.MZ_Color__r.Id, MZ_ColorType__c = otrs.MZ_Color__r.MZ_ColorType__c);
                                     coordinate.MZ_Outer__r.MZ_Design__r = new MZ_Design__c(Id = otrs.MZ_Design__r.Id, MZ_DesignType__c = otrs.MZ_Design__r.MZ_DesignType__c);
                                     
-                                    coordinate.MZ_Inner__r = new MZ_Item__c(Id = inrs.Id, MZ_Style__c = inrs.MZ_Style__c);
+                                    coordinate.MZ_Inner__r = new MZ_Item__c(Id = inrs.Id, MZ_Style__c = inrs.MZ_Style__c, MZ_ItemURLText__c = inrs.MZ_ItemURL__c);
                                     coordinate.MZ_Inner__r.MZ_Color__r = new MZ_Color__c(Id = inrs.MZ_Color__r.Id, MZ_ColorType__c = inrs.MZ_Color__r.MZ_ColorType__c);
                                     coordinate.MZ_Inner__r.MZ_Design__r = new MZ_Design__c(Id = inrs.MZ_Design__r.Id, MZ_DesignType__c = inrs.MZ_Design__r.MZ_DesignType__c);
                                     
-                                    coordinate.MZ_Bottoms__r = new MZ_Item__c(Id = btms.Id, MZ_Style__c = btms.MZ_Style__c);
+                                    coordinate.MZ_Bottoms__r = new MZ_Item__c(Id = btms.Id, MZ_Style__c = btms.MZ_Style__c, MZ_ItemURLText__c = btms.MZ_ItemURL__c);
                                     coordinate.MZ_Bottoms__r.MZ_Color__r = new MZ_Color__c(Id = btms.MZ_Color__r.Id, MZ_ColorType__c = btms.MZ_Color__r.MZ_ColorType__c);
                                     coordinate.MZ_Bottoms__r.MZ_Design__r = new MZ_Design__c(Id = btms.MZ_Design__r.Id, MZ_DesignType__c = btms.MZ_Design__r.MZ_DesignType__c);
                                     
-                                    coordinate.MZ_Shoes__r = new MZ_Item__c(Id = shs.Id, MZ_Style__c = shs.MZ_Style__c);
+                                    coordinate.MZ_Shoes__r = new MZ_Item__c(Id = shs.Id, MZ_Style__c = shs.MZ_Style__c, MZ_ItemURLText__c = shs.MZ_ItemURL__c);
                                     coordinate.MZ_Shoes__r.MZ_Color__r = new MZ_Color__c(Id = shs.MZ_Color__r.Id, MZ_ColorType__c = shs.MZ_Color__r.MZ_ColorType__c);
                                     coordinate.MZ_Shoes__r.MZ_Design__r = new MZ_Design__c(Id = shs.MZ_Design__r.Id, MZ_DesignType__c = shs.MZ_Design__r.MZ_DesignType__c);
                                     
@@ -239,19 +239,19 @@ public class ItemController {
                             for(MZ_Item__c shs: shoesList[i]) {
                                 MZ_Coordinate__c coordinate = new MZ_Coordinate__c(MZ_Tops__c = tps.Id, MZ_Inner__c = inrs.Id, MZ_Bottoms__c = btms.Id, MZ_Shoes__c = shs.Id);
                                 
-                                coordinate.MZ_Tops__r = new MZ_Item__c(Id = tps.Id, MZ_Style__c = tps.MZ_Style__c);
+                                coordinate.MZ_Tops__r = new MZ_Item__c(Id = tps.Id, MZ_Style__c = tps.MZ_Style__c, MZ_ItemURLText__c = tps.MZ_ItemURL__c);
                                 coordinate.MZ_Tops__r.MZ_Color__r = new MZ_Color__c(Id = tps.MZ_Color__r.Id, MZ_ColorType__c = tps.MZ_Color__r.MZ_ColorType__c);
                                 coordinate.MZ_Tops__r.MZ_Design__r = new MZ_Design__c(Id = tps.MZ_Design__r.Id, MZ_DesignType__c = tps.MZ_Design__r.MZ_DesignType__c);
                                 
-                                coordinate.MZ_Inner__r = new MZ_Item__c(Id = inrs.Id, MZ_Style__c = inrs.MZ_Style__c);
+                                coordinate.MZ_Inner__r = new MZ_Item__c(Id = inrs.Id, MZ_Style__c = inrs.MZ_Style__c, MZ_ItemURLText__c = inrs.MZ_ItemURL__c);
                                 coordinate.MZ_Inner__r.MZ_Color__r = new MZ_Color__c(Id = inrs.MZ_Color__r.Id, MZ_ColorType__c = inrs.MZ_Color__r.MZ_ColorType__c);
                                 coordinate.MZ_Inner__r.MZ_Design__r = new MZ_Design__c(Id = inrs.MZ_Design__r.Id, MZ_DesignType__c = inrs.MZ_Design__r.MZ_DesignType__c);
                                 
-                                coordinate.MZ_Bottoms__r = new MZ_Item__c(Id = btms.Id, MZ_Style__c = btms.MZ_Style__c);
+                                coordinate.MZ_Bottoms__r = new MZ_Item__c(Id = btms.Id, MZ_Style__c = btms.MZ_Style__c, MZ_ItemURLText__c = btms.MZ_ItemURL__c);
                                 coordinate.MZ_Bottoms__r.MZ_Color__r = new MZ_Color__c(Id = btms.MZ_Color__r.Id, MZ_ColorType__c = btms.MZ_Color__r.MZ_ColorType__c);
                                 coordinate.MZ_Bottoms__r.MZ_Design__r = new MZ_Design__c(Id = btms.MZ_Design__r.Id, MZ_DesignType__c = btms.MZ_Design__r.MZ_DesignType__c);
                                 
-                                coordinate.MZ_Shoes__r = new MZ_Item__c(Id = shs.Id, MZ_Style__c = shs.MZ_Style__c);
+                                coordinate.MZ_Shoes__r = new MZ_Item__c(Id = shs.Id, MZ_Style__c = shs.MZ_Style__c, MZ_ItemURLText__c = shs.MZ_ItemURL__c);
                                 coordinate.MZ_Shoes__r.MZ_Color__r = new MZ_Color__c(Id = shs.MZ_Color__r.Id, MZ_ColorType__c = shs.MZ_Color__r.MZ_ColorType__c);
                                 coordinate.MZ_Shoes__r.MZ_Design__r = new MZ_Design__c(Id = shs.MZ_Design__r.Id, MZ_DesignType__c = shs.MZ_Design__r.MZ_DesignType__c);
                                 
@@ -268,15 +268,15 @@ public class ItemController {
                     for(MZ_Item__c btms: bottomsList[i]) {
                         for(MZ_Item__c shs: shoesList[i]) {
                             MZ_Coordinate__c coordinate = new MZ_Coordinate__c(MZ_Inner__c = inrs.Id, MZ_Bottoms__c = btms.Id, MZ_Shoes__c = shs.Id);
-                            coordinate.MZ_Inner__r = new MZ_Item__c(Id = inrs.Id, MZ_Style__c = inrs.MZ_Style__c);
+                            coordinate.MZ_Inner__r = new MZ_Item__c(Id = inrs.Id, MZ_Style__c = inrs.MZ_Style__c, MZ_ItemURLText__c = inrs.MZ_ItemURL__c);
                             coordinate.MZ_Inner__r.MZ_Color__r = new MZ_Color__c(Id = inrs.MZ_Color__r.Id, MZ_ColorType__c = inrs.MZ_Color__r.MZ_ColorType__c);
                             coordinate.MZ_Inner__r.MZ_Design__r = new MZ_Design__c(Id = inrs.MZ_Design__r.Id, MZ_DesignType__c = inrs.MZ_Design__r.MZ_DesignType__c);
                             
-                            coordinate.MZ_Bottoms__r = new MZ_Item__c(Id = btms.Id, MZ_Style__c = btms.MZ_Style__c);
+                            coordinate.MZ_Bottoms__r = new MZ_Item__c(Id = btms.Id, MZ_Style__c = btms.MZ_Style__c, MZ_ItemURLText__c = btms.MZ_ItemURL__c);
                             coordinate.MZ_Bottoms__r.MZ_Color__r = new MZ_Color__c(Id = btms.MZ_Color__r.Id, MZ_ColorType__c = btms.MZ_Color__r.MZ_ColorType__c);
                             coordinate.MZ_Bottoms__r.MZ_Design__r = new MZ_Design__c(Id = btms.MZ_Design__r.Id, MZ_DesignType__c = btms.MZ_Design__r.MZ_DesignType__c);
                             
-                            coordinate.MZ_Shoes__r = new MZ_Item__c(Id = shs.Id, MZ_Style__c = shs.MZ_Style__c);
+                            coordinate.MZ_Shoes__r = new MZ_Item__c(Id = shs.Id, MZ_Style__c = shs.MZ_Style__c, MZ_ItemURLText__c = shs.MZ_ItemURL__c);
                             coordinate.MZ_Shoes__r.MZ_Color__r = new MZ_Color__c(Id = shs.MZ_Color__r.Id, MZ_ColorType__c = shs.MZ_Color__r.MZ_ColorType__c);
                             coordinate.MZ_Shoes__r.MZ_Design__r = new MZ_Design__c(Id = shs.MZ_Design__r.Id, MZ_DesignType__c = shs.MZ_Design__r.MZ_DesignType__c);
                             

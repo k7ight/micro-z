@@ -24,14 +24,16 @@
                     <!-- </lightning-layout-item>
                 </lightning-layout> -->
                 <lightning-layout multiple-rows="true">
-                    <!-- <template for:each={coordinates.data} for:item="coordinate">
-                        <lightning-layout-item key={coordinate.Id} padding="around-small" size="12">
-                            <c-coordinate coordinate={coordinate} oncheck={handleCheck}></c-coordinate>
-                        </lightning-layout-item>
-                    </template> -->
-                    <lightning-layout-item padding="around-small" size="12">
+                    <template lwc:if={recommendCoordinates}>
+                        <template for:each={recommendCoordinates.data} for:item="coordinate">
+                            <lightning-layout-item key={coordinate.Id} padding="around-small" size="12">
+                                <c-coordinate coordinate={coordinate}></c-coordinate>
+                            </lightning-layout-item>
+                        </template>
+                    </template>
+                    <!-- <lightning-layout-item padding="around-small" size="12">
                         <c-coordinate></c-coordinate>
-                    </lightning-layout-item>
+                    </lightning-layout-item> -->
                 </lightning-layout>
             </lightning-card>
         </lightning-layout-item>
