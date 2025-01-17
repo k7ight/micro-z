@@ -58,6 +58,7 @@ public class ItemController {
     
     @AuraEnabled(cacheable=true)
     public static List<MZ_Coordinate__c> generateCoordinates(Id recordId, String season) {
+        System.debug('generateCoordinates call');
         // アウター、トップス、インナー、ボトムス、シューズのリスト格納用
         List<List<MZ_Item__c>> outerList = new List<List<MZ_Item__c>>();
         List<List<MZ_Item__c>> topsList = new List<List<MZ_Item__c>>();
@@ -101,6 +102,13 @@ public class ItemController {
         
         // カラーマッチングテーブルを取得
         List<MZ_ColorMatching__c> colorMatchingTable = [SELECT Id, MZ_Color1__c, MZ_Color2__c, MZ_MatchingScore__c FROM MZ_ColorMatching__c];
+        Map<String, Integer> colorMatchingMap = new Map<String, Integer>();
+        for (MZ_ColorMatching__c cm : colorMatchingTable) {
+            String key = cm.MZ_Color1__c + '-' + cm.MZ_Color2__c;
+            colorMatchingMap.put(key, Integer.valueOf(cm.MZ_MatchingScore__c));
+            String reverseKey = cm.MZ_Color2__c + '-' + cm.MZ_Color1__c;
+            colorMatchingMap.put(reverseKey, Integer.valueOf(cm.MZ_MatchingScore__c));
+        }
         
         // シーズンに応じたコーデパターンをセット
         switch on season {
@@ -155,12 +163,6 @@ public class ItemController {
             }
         }
         
-        System.debug('outerList: ' + outerList);
-        System.debug('topsList: ' + topsList);
-        System.debug('innerList: ' + innerList);
-        System.debug('bottomsList: ' + bottomsList);
-        System.debug('shoesList: ' + shoesList);
-        
         // outerList[i]〜shoesList[i]（レコードリスト）からcoordList[i]（レコードリスト）を総当りで作成
         for(Integer i = 0; i < outerList.size(); i++) {
             List<MZ_Coordinate__c> coordinates = new List<MZ_Coordinate__c>();
@@ -193,10 +195,8 @@ public class ItemController {
                                         coordinate.MZ_Shoes__r.MZ_Color__r = new MZ_Color__c(Id = shs.MZ_Color__r.Id, MZ_ColorType__c = shs.MZ_Color__r.MZ_ColorType__c);
                                         coordinate.MZ_Shoes__r.MZ_Design__r = new MZ_Design__c(Id = shs.MZ_Design__r.Id, MZ_DesignType__c = shs.MZ_Design__r.MZ_DesignType__c);
                                         
-                                        System.debug('coordinate: ' + coordinate);
-                                        coordinate.MZ_CoordinateScore__c = calcCoordinateScore(coordinate, colorMatchingTable);
+                                        coordinate.MZ_CoordinateScore__c = calcCoordinateScore(coordinate, colorMatchingMap);
                                         coordinates.add(coordinate);
-                                        System.debug('coordinates: ' + coordinates);
                                     }
                                 }
                             }
@@ -223,10 +223,8 @@ public class ItemController {
                                     coordinate.MZ_Shoes__r.MZ_Color__r = new MZ_Color__c(Id = shs.MZ_Color__r.Id, MZ_ColorType__c = shs.MZ_Color__r.MZ_ColorType__c);
                                     coordinate.MZ_Shoes__r.MZ_Design__r = new MZ_Design__c(Id = shs.MZ_Design__r.Id, MZ_DesignType__c = shs.MZ_Design__r.MZ_DesignType__c);
                                     
-                                    System.debug('coordinate: ' + coordinate);
-                                    coordinate.MZ_CoordinateScore__c = calcCoordinateScore(coordinate, colorMatchingTable);
+                                    coordinate.MZ_CoordinateScore__c = calcCoordinateScore(coordinate, colorMatchingMap);
                                     coordinates.add(coordinate);
-                                    System.debug('coordinates: ' + coordinates);
                                 }
                             }
                         }
@@ -255,10 +253,8 @@ public class ItemController {
                                 coordinate.MZ_Shoes__r.MZ_Color__r = new MZ_Color__c(Id = shs.MZ_Color__r.Id, MZ_ColorType__c = shs.MZ_Color__r.MZ_ColorType__c);
                                 coordinate.MZ_Shoes__r.MZ_Design__r = new MZ_Design__c(Id = shs.MZ_Design__r.Id, MZ_DesignType__c = shs.MZ_Design__r.MZ_DesignType__c);
                                 
-                                System.debug('coordinate: ' + coordinate);
-                                coordinate.MZ_CoordinateScore__c = calcCoordinateScore(coordinate, colorMatchingTable);
+                                coordinate.MZ_CoordinateScore__c = calcCoordinateScore(coordinate, colorMatchingMap);
                                 coordinates.add(coordinate);
-                                System.debug('coordinates: ' + coordinates);
                             }
                         }
                     }
@@ -280,16 +276,13 @@ public class ItemController {
                             coordinate.MZ_Shoes__r.MZ_Color__r = new MZ_Color__c(Id = shs.MZ_Color__r.Id, MZ_ColorType__c = shs.MZ_Color__r.MZ_ColorType__c);
                             coordinate.MZ_Shoes__r.MZ_Design__r = new MZ_Design__c(Id = shs.MZ_Design__r.Id, MZ_DesignType__c = shs.MZ_Design__r.MZ_DesignType__c);
                             
-                            System.debug('coordinate: ' + coordinate);
-                            coordinate.MZ_CoordinateScore__c = calcCoordinateScore(coordinate, colorMatchingTable);
+                            coordinate.MZ_CoordinateScore__c = calcCoordinateScore(coordinate, colorMatchingMap);
                             coordinates.add(coordinate);
-                            System.debug('coordinates: ' + coordinates);
                         }
                     }
                 }
             }
             coordList.add(coordinates);
-            System.debug('coordList: ' + coordList);
         }
         // コーデパターン毎にスコア順に並び替え、上位100件を取得
         for(Integer i = 0; i < outerList.size(); i++) {
@@ -313,15 +306,13 @@ public class ItemController {
     }
     
     // コーデスコアを計算
-    static Integer calcCoordinateScore(MZ_Coordinate__c coordinate, List<MZ_ColorMatching__c> colorMatchingTable) {
+    static Integer calcCoordinateScore(MZ_Coordinate__c coordinate, Map<String, Integer> colorMatchingMap) {
         Integer score = 0;
         Integer accentCnt = 0;
         Integer designCnt = 0;
         Integer formalCnt = 0;
         Integer casualCnt = 0;
         Decimal formalRate = 0;
-        
-        System.debug('coordinate: ' + coordinate);
         
         List<MZ_Item__c> itemList = new List<MZ_Item__c>{
             coordinate.MZ_Outer__r, 
@@ -332,19 +323,12 @@ public class ItemController {
         };
         
         // カラーマッチングテーブルに基づき各アイテムの組み合わせからスコアを算出
-        for(MZ_ColorMatching__c cm: colorMatchingTable) {
-            for(Integer i = 0; i < itemList.size(); i++) {
-                for(Integer j = 0; j < itemList.size(); j++) {
-                    if(i < j) {
-                        if(itemList[i] != null && itemList[j] != null) {
-                            if(itemList[i].MZ_Color__c == cm.MZ_Color1__c && itemList[j].MZ_Color__c == cm.MZ_Color2__c) {
-                                score += Integer.valueOf(cm.MZ_MatchingScore__c);
-                            } else if(itemList[i].MZ_Color__c == cm.MZ_Color2__c && itemList[j].MZ_Color__c == cm.MZ_Color1__c) {
-                                score += Integer.valueOf(cm.MZ_MatchingScore__c);
-                            } else {
-                                // System.debug('[ERROR] ColorMatching is not registered.');
-                            }
-                        }
+        for (Integer i = 0; i < itemList.size(); i++) {
+            for (Integer j = i + 1; j < itemList.size(); j++) { // i < j を暗黙的に実現
+                if (itemList[i] != null && itemList[j] != null) {
+                    String key = itemList[i].MZ_Color__r.Id + '-' + itemList[j].MZ_Color__r.Id;
+                    if (colorMatchingMap.containsKey(key)) {
+                        score += colorMatchingMap.get(key);
                     }
                 }
             }
@@ -369,7 +353,7 @@ public class ItemController {
         
         // 集計値に応じてスコアを調整
         if(formalCnt + casualCnt > 0) {
-            formalRate = formalCnt / (formalCnt + casualCnt);
+            formalRate = (Decimal)formalCnt / (formalCnt + casualCnt);
         } else {
             formalRate = 0;
         }

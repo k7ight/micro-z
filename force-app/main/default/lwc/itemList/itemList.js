@@ -37,12 +37,10 @@ export default class ItemList extends NavigationMixin(LightningElement) {
 
     // 非同期ロジック
     async handleOpenModal(event) {
-        console.log('[DEBUG] handleOpenModal call');
         const result = await ItemModal.open({
             size: 'small',
             item: event.detail,
             onnavigate: (e) => {
-                console.log('[DEBUG] onnavigate: ' + JSON.stringify(e.detail));
                 this[NavigationMixin.Navigate](e.detail);
             }
         });

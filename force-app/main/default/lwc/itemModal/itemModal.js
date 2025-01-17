@@ -49,7 +49,6 @@ export default class ItemModal extends LightningModal {
     }
 
     handleCloseModal() {
-        console.log('[DEBUG] handleCloseModal call');
         this.close();
     }
 }

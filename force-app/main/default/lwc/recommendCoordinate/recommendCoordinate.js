@@ -14,6 +14,8 @@ const FIELDS = [CATEGORY_FIELD, SUBCATEGORY_FIELD, COLORID_FIELD, DESIGNTYPE_FIE
 export default class RecommendCoordinate extends LightningElement {
     recordId;
     season;
+    isLoading = false;
+    recommendCoordinates;
  
     @wire(CurrentPageReference)
     getPageReference(pageRef) {
@@ -30,9 +32,19 @@ export default class RecommendCoordinate extends LightningElement {
         recordId: '$recordId',
         season: '$season'
     })
-    recommendCoordinates;
+    wiredCoordinates({data, error}) {
+        if (data) {
+            this.recommendCoordinates = data;
+        } else if (error) {
+            this.recommendCoordinates = undefined;
+            console.log('wiredCoordinates error: ' + error.message);
+        } 
+        this.isLoading = false;
+    }
+    // recommendCoordinates;
 
     handleGenerate(event) {
         this.season = event.detail.season;
+        this.isLoading = true;
     }
 }

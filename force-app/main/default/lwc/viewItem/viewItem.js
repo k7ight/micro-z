@@ -30,6 +30,7 @@ export default class ViewItem extends LightningElement {
             alert('対象シーズンを選択してください。');
             return;
         }
+
         const event = new CustomEvent(
             'generate',
             {
