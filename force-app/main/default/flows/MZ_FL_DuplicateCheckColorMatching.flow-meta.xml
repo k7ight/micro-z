@@ -5,17 +5,42 @@
         <name>ERROR_DuplicateColorMatching</name>
         <label>重複エラー</label>
         <locationX>50</locationX>
-        <locationY>503</locationY>
+        <locationY>995</locationY>
         <customErrorMessages>
             <errorMessage>既に{!$Record.MZ_Color1__r.Name}と{!$Record.MZ_Color2__r.Name}の組み合わせは登録済みです。</errorMessage>
             <isFieldError>false</isFieldError>
         </customErrorMessages>
     </customErrors>
     <decisions>
+        <name>JUDGE_CreateOrUpdate</name>
+        <label>新規・更新判定</label>
+        <locationX>182</locationX>
+        <locationY>287</locationY>
+        <defaultConnector>
+            <targetReference>JUDGE_UpdateColor</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>更新時</defaultConnectorLabel>
+        <rules>
+            <name>IsCreate</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record__Prior</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>GET_ColorMatching</targetReference>
+            </connector>
+            <label>新規作成時</label>
+        </rules>
+    </decisions>
+    <decisions>
         <name>JUDGE_ExistColorMatching</name>
         <label>レコード存在判定</label>
         <locationX>182</locationX>
-        <locationY>395</locationY>
+        <locationY>887</locationY>
         <defaultConnectorLabel>レコード無し</defaultConnectorLabel>
         <rules>
             <name>ExistColorMatching</name>
@@ -31,6 +56,35 @@
                 <targetReference>ERROR_DuplicateColorMatching</targetReference>
             </connector>
             <label>レコード有り</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>JUDGE_UpdateColor</name>
+        <label>カラー項目変更判定</label>
+        <locationX>314</locationX>
+        <locationY>395</locationY>
+        <defaultConnectorLabel>カラー以外を変更</defaultConnectorLabel>
+        <rules>
+            <name>UpdateColor</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.MZ_Color1__c</leftValueReference>
+                <operator>IsChanged</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.MZ_Color2__c</leftValueReference>
+                <operator>IsChanged</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>GET_ColorMatching</targetReference>
+            </connector>
+            <label>カラーを変更</label>
         </rules>
     </decisions>
     <environments>Default</environments>
@@ -59,7 +113,7 @@
         <name>GET_ColorMatching</name>
         <label>カラーマッチングを取得</label>
         <locationX>182</locationX>
-        <locationY>287</locationY>
+        <locationY>779</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>JUDGE_ExistColorMatching</targetReference>
@@ -101,7 +155,7 @@
         <locationX>56</locationX>
         <locationY>0</locationY>
         <connector>
-            <targetReference>GET_ColorMatching</targetReference>
+            <targetReference>JUDGE_CreateOrUpdate</targetReference>
         </connector>
         <object>MZ_ColorMatching__c</object>
         <recordTriggerType>CreateAndUpdate</recordTriggerType>

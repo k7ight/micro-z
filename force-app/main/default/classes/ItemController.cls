@@ -58,19 +58,92 @@ public class ItemController {
     
     @AuraEnabled(cacheable=true)
     public static List<MZ_Coordinate__c> generateCoordinates(Id recordId, String season) {
-        System.debug('generateCoordinates call');
-        // アウター、トップス、インナー、ボトムス、シューズのリスト格納用
+
+        // アウター、トップス、インナー、ボトムス、シューズのコーデパターン別リスト格納用
         List<List<MZ_Item__c>> outerList = new List<List<MZ_Item__c>>();
         List<List<MZ_Item__c>> topsList = new List<List<MZ_Item__c>>();
         List<List<MZ_Item__c>> innerList = new List<List<MZ_Item__c>>();
         List<List<MZ_Item__c>> bottomsList = new List<List<MZ_Item__c>>();
         List<List<MZ_Item__c>> shoesList = new List<List<MZ_Item__c>>();
         
+        // アウター、トップス、インナー、ボトムス、シューズリスト格納用
+        Map<Id, MZ_Item__c> outers = new Map<Id, MZ_Item__c>();
+        Map<Id, MZ_Item__c> outerTops = new Map<Id, MZ_Item__c>();
+        Map<Id, MZ_Item__c> innerTops = new Map<Id, MZ_Item__c>();
+        Map<Id, MZ_Item__c> allTops = new Map<Id, MZ_Item__c>();
+        Map<Id, MZ_Item__c> topsInners = new Map<Id, MZ_Item__c>();
+        Map<Id, MZ_Item__c> inners = new Map<Id, MZ_Item__c>();
+        Map<Id, MZ_Item__c> bottoms = new Map<Id, MZ_Item__c>();
+        Map<Id, MZ_Item__c> shoes = new Map<Id, MZ_Item__c>();
+        
         // コーデリスト格納用
         List<List<MZ_Coordinate__c>> coordList = new List<List<MZ_Coordinate__c>>();
         List<MZ_Coordinate__c> recommendCoordList = new List<MZ_Coordinate__c>();
         
+        // 対象アイテムを取得
+       	List<MZ_Item__c> selectedItem = [SELECT Id, MZ_Category__c, MZ_SubCategory__c, MZ_Color__r.Id, MZ_Color__r.MZ_ColorType__c, 
+                                   MZ_Design__r.MZ_DesignType__c, MZ_Style__c, MZ_ItemURL__c FROM MZ_Item__c WHERE Id = :recordId];
+        
         // アウター、トップス、インナー、ボトムス、シューズのリスト取得
+        if(selectedItem[0].MZ_Category__c == 'アウター') {
+            outers = new Map<Id, MZ_Item__c>(selectedItem);
+        } else {
+            outers = new Map<Id, MZ_Item__c>([SELECT Id, MZ_Color__r.Id, MZ_Color__r.MZ_ColorType__c, MZ_Design__r.MZ_DesignType__c, MZ_Style__c, MZ_ItemURL__c FROM MZ_Item__c 
+                      WHERE MZ_Category__c = 'アウター' AND MZ_Season__c INCLUDES(:season)]);
+        }
+        
+        if(selectedItem[0].MZ_SubCategory__c == 'ニット' || selectedItem[0].MZ_SubCategory__c == 'カーディガン' || selectedItem[0].MZ_SubCategory__c == 'ベスト' 
+           || selectedItem[0].MZ_SubCategory__c == 'アンサンブル' || selectedItem[0].MZ_SubCategory__c == 'パーカー' || selectedItem[0].MZ_SubCategory__c == 'スウェット'
+           || selectedItem[0].MZ_SubCategory__c == 'チュニック' || selectedItem[0].MZ_SubCategory__c == 'その他トップス') {
+               outerTops = new Map<Id, MZ_Item__c>(selectedItem);
+               allTops = new Map<Id, MZ_Item__c>(selectedItem);
+           } else {
+               outerTops = new Map<Id, MZ_Item__c>([SELECT Id, MZ_Color__r.Id, MZ_Color__r.MZ_ColorType__c, MZ_Design__r.MZ_DesignType__c, MZ_Style__c, MZ_ItemURL__c FROM MZ_Item__c 
+                            WHERE MZ_SubCategory__c IN ('ニット', 'カーディガン', 'ベスト', 'アンサンブル', 'パーカー', 'スウェット', 'チュニック', 'その他トップス') 
+                            AND MZ_Season__c INCLUDES(:season)]);
+           }
+        
+        if(selectedItem[0].MZ_SubCategory__c == 'シャツ・ブラウス' || selectedItem[0].MZ_SubCategory__c == 'ポロシャツ') {
+            innerTops = new Map<Id, MZ_Item__c>(selectedItem);
+            allTops = new Map<Id, MZ_Item__c>(selectedItem);
+        } else {
+            innerTops = new Map<Id, MZ_Item__c>([SELECT Id, MZ_Color__r.Id, MZ_Color__r.MZ_ColorType__c, MZ_Design__r.MZ_DesignType__c, MZ_Style__c, MZ_ItemURL__c FROM MZ_Item__c 
+                         WHERE MZ_SubCategory__c IN ('シャツ・ブラウス', 'ポロシャツ') AND MZ_Season__c INCLUDES(:season)]);
+            if(allTops == null) {
+                allTops.putAll(outerTops);
+                allTops.putAll(innerTops);
+            }
+        }
+        
+        if(selectedItem[0].MZ_SubCategory__c == 'シャツ・ブラウス' || selectedItem[0].MZ_SubCategory__c == 'Tシャツ・カットソー') {
+            topsInners = new Map<Id, MZ_Item__c>(selectedItem);
+        } else {
+            topsInners = new Map<Id, MZ_Item__c>([SELECT Id, MZ_Color__r.Id, MZ_Color__r.MZ_ColorType__c, MZ_Design__r.MZ_DesignType__c, MZ_Style__c, MZ_ItemURL__c FROM MZ_Item__c 
+                          WHERE MZ_SubCategory__c IN ('シャツ・ブラウス', 'Tシャツ・カットソー') AND MZ_Season__c INCLUDES(:season)]);
+        }
+        
+        if(selectedItem[0].MZ_SubCategory__c == 'Tシャツ・カットソー' || selectedItem[0].MZ_SubCategory__c == 'タンクトップ') {
+            inners = new Map<Id, MZ_Item__c>(selectedItem);
+        } else {
+            inners = new Map<Id, MZ_Item__c>([SELECT Id, MZ_Color__r.Id, MZ_Color__r.MZ_ColorType__c, MZ_Design__r.MZ_DesignType__c, MZ_Style__c, MZ_ItemURL__c FROM MZ_Item__c 
+                      WHERE MZ_SubCategory__c IN ('Tシャツ・カットソー', 'タンクトップ') AND MZ_Season__c INCLUDES(:season)]);
+        }
+        
+        if(selectedItem[0].MZ_Category__c == 'パンツ' || selectedItem[0].MZ_Category__c == 'スカート') {
+            bottoms = new Map<Id, MZ_Item__c>(selectedItem);
+        } else {
+            bottoms = new Map<Id, MZ_Item__c>([SELECT Id, MZ_Color__r.Id, MZ_Color__r.MZ_ColorType__c, MZ_Design__r.MZ_DesignType__c, MZ_Style__c, MZ_ItemURL__c FROM MZ_Item__c 
+                       WHERE MZ_Category__c IN ('パンツ', 'スカート') AND MZ_Season__c INCLUDES(:season)]);
+        }
+        
+        if(selectedItem[0].MZ_Category__c == 'シューズ') {
+            shoes = new Map<Id, MZ_Item__c>(selectedItem);
+        } else {
+            shoes = new Map<Id, MZ_Item__c>([SELECT Id, MZ_Color__r.Id, MZ_Color__r.MZ_ColorType__c, MZ_Design__r.MZ_DesignType__c, MZ_Style__c, MZ_ItemURL__c FROM MZ_Item__c 
+                     WHERE MZ_Category__c = 'シューズ' AND MZ_Season__c INCLUDES(:season)]); 
+        }
+            
+        /*
         List<MZ_Item__c> outers = [SELECT Id, MZ_Color__r.Id, MZ_Color__r.MZ_ColorType__c, MZ_Design__r.MZ_DesignType__c, MZ_Style__c, MZ_ItemURL__c FROM MZ_Item__c 
                                    WHERE MZ_Category__c = 'アウター' AND MZ_Season__c INCLUDES(:season)];
         List<MZ_Item__c> outerTops = [SELECT Id, MZ_Color__r.Id, MZ_Color__r.MZ_ColorType__c, MZ_Design__r.MZ_DesignType__c, MZ_Style__c, MZ_ItemURL__c FROM MZ_Item__c 
@@ -89,8 +162,10 @@ public class ItemController {
                                     WHERE MZ_Category__c IN ('パンツ', 'スカート') AND MZ_Season__c INCLUDES(:season)];
         List<MZ_Item__c> shoes = [SELECT Id, MZ_Color__r.Id, MZ_Color__r.MZ_ColorType__c, MZ_Design__r.MZ_DesignType__c, MZ_Style__c, MZ_ItemURL__c FROM MZ_Item__c 
                                   WHERE MZ_Category__c = 'シューズ' AND MZ_Season__c INCLUDES(:season)]; 
+		*/
         
         // Idが存在する場合は該当カテゴリを固定アイテムにセット
+        /* 
         outers = setSelectedItem(recordId, outers);
        	outerTops = setSelectedItem(recordId, outerTops);
         innerTops = setSelectedItem(recordId, innerTops);
@@ -98,7 +173,11 @@ public class ItemController {
         topsInners = setSelectedItem(recordId, topsInners);
         inners = setSelectedItem(recordId, inners);
         bottoms = setSelectedItem(recordId, bottoms);
-        shoes = setSelectedItem(recordId, shoes);    
+        shoes = setSelectedItem(recordId, shoes);  
+		*/
+        
+        // 本来はここで固定されたカテゴリ（秋の場合：outerTops, innerTops, allTops）を判別し、
+        // それらが含まれないコーデパターンはスキップする、みたいな処理が必要。
         
         // カラーマッチングテーブルを取得
         List<MZ_ColorMatching__c> colorMatchingTable = [SELECT Id, MZ_Color1__c, MZ_Color2__c, MZ_MatchingScore__c FROM MZ_ColorMatching__c];
@@ -113,50 +192,71 @@ public class ItemController {
         // シーズンに応じたコーデパターンをセット
         switch on season {
             when '春', '秋' {
-                outerList.add(outers);
-                outerList.add(null);
-                outerList.add(null);
-            	topsList.add(null);
-                topsList.add(outerTops);
-                topsList.add(innerTops);
-                innerList.add(topsInners);
-                innerList.add(topsInners);
-                innerList.add(inners);
-                bottomsList.add(bottoms);
-                bottomsList.add(bottoms);
-                bottomsList.add(bottoms);
-                shoesList.add(shoes);
-                shoesList.add(shoes);
-                shoesList.add(shoes);
+                if(outers.containsKey(recordId) || topsInners.containsKey(recordId) || bottoms.containsKey(recordId) || shoes.containsKey(recordId)) {
+                    outerList.add(outers.values());
+                    topsList.add(null);
+                    innerList.add(topsInners.values());
+                    bottomsList.add(bottoms.values());
+                    shoesList.add(shoes.values());
+                }
+                
+                if(outerTops.containsKey(recordId) || topsInners.containsKey(recordId) || bottoms.containsKey(recordId) || shoes.containsKey(recordId)) {
+           		    outerList.add(null);
+                    topsList.add(outerTops.values());
+                    innerList.add(topsInners.values()); 
+                    bottomsList.add(bottoms.values());
+                    shoesList.add(shoes.values());
+                }
+                
+                if(innerTops.containsKey(recordId) || inners.containsKey(recordId) || bottoms.containsKey(recordId) || shoes.containsKey(recordId)) {
+                    outerList.add(null);
+                    topsList.add(innerTops.values());
+                    innerList.add(inners.values());
+                    bottomsList.add(bottoms.values());
+                    shoesList.add(shoes.values());
+            	}
             }
             when '夏' {
-                outerList.add(outers);
-                outerList.add(null);
-                outerList.add(null);
-            	topsList.add(null);
-                topsList.add(allTops);
-                topsList.add(null);
-                innerList.add(inners);
-                innerList.add(inners);
-                innerList.add(inners);
-                bottomsList.add(bottoms);
-                bottomsList.add(bottoms);
-                bottomsList.add(bottoms);
-                shoesList.add(shoes);
-                shoesList.add(shoes);
-                shoesList.add(shoes);
+                if(outers.containsKey(recordId) || inners.containsKey(recordId) || bottoms.containsKey(recordId) || shoes.containsKey(recordId)) {
+                    outerList.add(outers.values());
+                    topsList.add(null);
+                    innerList.add(inners.values());
+                    bottomsList.add(bottoms.values());
+                    shoesList.add(shoes.values());
+                }
+                
+                if(allTops.containsKey(recordId) || inners.containsKey(recordId) || bottoms.containsKey(recordId) || shoes.containsKey(recordId)) {
+                    outerList.add(null);
+                    topsList.add(allTops.values());
+                    innerList.add(inners.values());
+                    bottomsList.add(bottoms.values());
+                    shoesList.add(shoes.values());
+                }
+                
+                if(inners.containsKey(recordId) || bottoms.containsKey(recordId) || shoes.containsKey(recordId)) {
+                    outerList.add(null);
+                    topsList.add(null);
+                    innerList.add(inners.values());
+                    bottomsList.add(bottoms.values());
+                    shoesList.add(shoes.values());
+                }
             }
             when '冬' {
-                outerList.add(outers);
-                outerList.add(outers);
-                topsList.add(outerTops);
-                topsList.add(innerTops);
-                innerList.add(topsInners);
-                innerList.add(inners);
-                bottomsList.add(bottoms);
-                bottomsList.add(bottoms);
-                shoesList.add(shoes);
-                shoesList.add(shoes);
+                if(outers.containsKey(recordId) || outerTops.containsKey(recordId) || topsInners.containsKey(recordId) || bottoms.containsKey(recordId) || shoes.containsKey(recordId)) {
+                    outerList.add(outers.values());
+                    topsList.add(outerTops.values());
+                    innerList.add(topsInners.values());
+                    bottomsList.add(bottoms.values());
+                    shoesList.add(shoes.values());
+                }
+                    
+                if(outers.containsKey(recordId) || innerTops.containsKey(recordId) || inners.containsKey(recordId) || bottoms.containsKey(recordId) || shoes.containsKey(recordId)) {
+                    outerList.add(outers.values());
+                    topsList.add(innerTops.values());
+                    innerList.add(inners.values());
+                    bottomsList.add(bottoms.values());
+                    shoesList.add(shoes.values());
+                }
             }
             when else {
                 System.debug('[ERROR] Season is not set.');
