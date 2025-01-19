@@ -2,6 +2,8 @@ import { LightningElement, wire } from 'lwc';
 import { CurrentPageReference } from 'lightning/navigation';
 import { getRecord } from 'lightning/uiRecordApi';
 import generateCoordinates from '@salesforce/apex/ItemController.generateCoordinates'
+import createMyCoordinates from '@salesforce/apex/ItemController.createMyCoordinates';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import CATEGORY_FIELD from '@salesforce/schema/MZ_Item__c.MZ_Category__c';
 import SUBCATEGORY_FIELD from '@salesforce/schema/MZ_Item__c.MZ_SubCategory__c';
 import SEASON_FIELD from '@salesforce/schema/MZ_Item__c.MZ_Season__c';
@@ -62,13 +64,37 @@ export default class RecommendCoordinate extends LightningElement {
         }
     }
 
-    handleCreateMyCoordinate() {
-        console.log('handleCreateMyCoordinate call');
+    async handleCreateMyCoordinates() {
+        console.log('handleCreateMyCoordinates call');
         console.log('this.myCoordinates: '+ JSON.stringify(this.myCoordinates));
         const coordinateComp = this.template.querySelectorAll('c-coordinate')
-        coordinateComp.forEach((child) => {
-            child.isChecked = false;
-        });
-        this.myCoordinates = [];
+
+        if(this.myCoordinates.length == 0) {
+            alert('登録対象コーデを選択してください。');
+            return;
+        }
+
+        try {
+            await createMyCoordinates({myCoordinates: this.myCoordinates});
+            this.dispatchEvent(
+                new ShowToastEvent({
+                    title: 'Success',
+                    message: 'マイコーデに登録されました',
+                    variant: 'success'
+                })
+            );
+            coordinateComp.forEach((child) => {
+                child.isChecked = false;
+            });
+            this.myCoordinates = [];
+        } catch(error) {
+            this.dispatchEvent(
+                new ShowToastEvent({
+                    title: 'Error',
+                    message: 'マイコーデの登録に失敗しました: ' + error.body.message,
+                    variant: 'error'
+                })
+            );
+        }
     }
 }

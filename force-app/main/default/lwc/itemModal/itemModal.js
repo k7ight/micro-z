@@ -41,7 +41,7 @@ export default class ItemModal extends LightningModal {
             this.dispatchEvent(
                 new ShowToastEvent({
                     title: 'Error',
-                    message: 'アイテムの削除に失敗しました:' + error.body.message,
+                    message: 'アイテムの削除に失敗しました: ' + error.body.message,
                     variant: 'error'
                 })
             );

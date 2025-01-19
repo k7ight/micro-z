@@ -51,8 +51,6 @@ public class ItemController {
         } else {
 	        query += ' ORDER BY CreatedDate DESC';            
         }                                       
-        System.debug('query: '+query);
-		System.debug('binds: '+binds);
         return Database.queryWithBinds(query, binds, AccessLevel.USER_MODE);
 	}
     
@@ -396,6 +394,7 @@ public class ItemController {
     }
     
     // Idに一致するレコードがあれば固定値をセット
+    /*
     static List<MZ_Item__c> setSelectedItem(Id recordId, List<MZ_Item__c> itemList) {
         for(MZ_Item__c item: itemList) {
             if(item.Id == recordId) {
@@ -404,6 +403,7 @@ public class ItemController {
         }
         return itemList;
     }
+	*/
     
     // コーデスコアを計算
     static Integer calcCoordinateScore(MZ_Coordinate__c coordinate, Map<String, Integer> colorMatchingMap) {
@@ -476,4 +476,16 @@ public class ItemController {
         }
         return score;
     }
+    
+    @AuraEnabled
+    public static void createMyCoordinates(List<MZ_Coordinate__c> myCoordinates) {
+        if (myCoordinates != null || !myCoordinates.isEmpty()) {
+            try {
+                insert myCoordinates;
+            } catch(DmlException e) {
+                throw new AuraHandledException('[ERROR] myCoordinates can\'t insert: ' + e.getMessage());
+            }
+        }
+     }
+    
 }
