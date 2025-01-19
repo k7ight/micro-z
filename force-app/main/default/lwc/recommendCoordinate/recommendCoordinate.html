@@ -9,7 +9,7 @@
             <lightning-card title="レコメンドコーデ" icon-name="utility:data_graph">
                 <div style="text-align: right;" class="slds-m-around_small">
                     <lightning-button variant="brand" label="マイコーデ登録" icon-name="utility:sparkles" 
-                        onclick={createMyCoordinate}>
+                        onclick={handleCreateMyCoordinate}>
                     </lightning-button>
                 </div>
                 <lightning-layout multiple-rows="true">
@@ -20,7 +20,7 @@
                         <template lwc:if={recommendCoordinates}>
                             <template for:each={recommendCoordinates} for:item="coordinate">
                                 <lightning-layout-item key={coordinate.Id} padding="around-small" size="12">
-                                    <c-coordinate coordinate={coordinate}></c-coordinate>
+                                    <c-coordinate coordinate={coordinate} oncheck={handleCheck} onuncheck={handleUncheck}></c-coordinate>
                                 </lightning-layout-item>
                             </template>
                         </template>

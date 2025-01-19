@@ -16,6 +16,7 @@ export default class RecommendCoordinate extends LightningElement {
     season;
     isLoading = false;
     recommendCoordinates;
+    myCoordinates = [];
  
     @wire(CurrentPageReference)
     getPageReference(pageRef) {
@@ -27,7 +28,6 @@ export default class RecommendCoordinate extends LightningElement {
     @wire(getRecord, {recordId: '$recordId', fields: FIELDS})
     item;
 
-    // コーデパターンを生成するApexを呼び出し
     @wire(generateCoordinates, {
         recordId: '$recordId',
         season: '$season'
@@ -41,10 +41,34 @@ export default class RecommendCoordinate extends LightningElement {
         } 
         this.isLoading = false;
     }
-    // recommendCoordinates;
 
     handleGenerate(event) {
         this.season = event.detail.season;
         this.isLoading = true;
+    }
+
+    handleCheck(event) {
+        this.myCoordinates.push(event.detail.myCoordinate);
+        console.log('handleCheck call');
+        console.log('this.myCoordinates: '+ JSON.stringify(this.myCoordinates));
+    }
+    
+    handleUncheck(event) {
+        let index = this.myCoordinates.indexOf(event.detail.myCoordinate);
+        if (index > -1) {
+            this.myCoordinates.splice(index, 1);
+            console.log('handleUncheck call');
+            console.log('this.myCoordinates: '+ JSON.stringify(this.myCoordinates));
+        }
+    }
+
+    handleCreateMyCoordinate() {
+        console.log('handleCreateMyCoordinate call');
+        console.log('this.myCoordinates: '+ JSON.stringify(this.myCoordinates));
+        const coordinateComp = this.template.querySelectorAll('c-coordinate')
+        coordinateComp.forEach((child) => {
+            child.isChecked = false;
+        });
+        this.myCoordinates = [];
     }
 }

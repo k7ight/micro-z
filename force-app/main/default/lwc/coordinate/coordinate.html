@@ -2,7 +2,8 @@
     <lightning-layout vertical-align="center">
         <lightning-layout-item padding="around-small" size="1">
             <div class="slds-align_absolute-center">
-                <lightning-input type="checkbox-button" label="" name=""></lightning-input>
+                <lightning-input type="checkbox-button" label={coordinate} name={coordinate}
+                    onchange={handleCheckboxChange} checked={isChecked}></lightning-input>
             </div>
         </lightning-layout-item>
         <lightning-layout-item padding="around-small" size="11">
