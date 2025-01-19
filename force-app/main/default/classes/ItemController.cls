@@ -107,7 +107,7 @@ public class ItemController {
         } else {
             innerTops = new Map<Id, MZ_Item__c>([SELECT Id, MZ_Color__r.Id, MZ_Color__r.MZ_ColorType__c, MZ_Design__r.MZ_DesignType__c, MZ_Style__c, MZ_ItemURL__c FROM MZ_Item__c 
                          WHERE MZ_SubCategory__c IN ('シャツ・ブラウス', 'ポロシャツ') AND MZ_Season__c INCLUDES(:season)]);
-            if(allTops == null) {
+            if(allTops.isEmpty()) {
                 allTops.putAll(outerTops);
                 allTops.putAll(innerTops);
             }
