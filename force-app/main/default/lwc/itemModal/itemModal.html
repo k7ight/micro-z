@@ -1,5 +1,4 @@
 <template>
-    <!-- <lightning-modal-header label={item.Name}></lightning-modal-header> -->
     <lightning-modal-body>
         <lightning-layout multiple-rows="true">
             <lightning-layout-item size="1" large-device-size="2"></lightning-layout-item>
@@ -7,12 +6,10 @@
                 <p class="slds-text-heading_small">アイテム名：{item.Name}</p>
                 <p class="slds-text-heading_small">カテゴリ：{item.MZ_Category__c}</p>
                 <p class="slds-text-heading_small">サブカテゴリ：{item.MZ_SubCategory__c}</p>
-                <p class="slds-text-heading_small">カラー：{item.MZ_Color__r.MZ_ColorGroup__c}</p>
-                <!-- <p class="slds-text-heading_small">カラー：{item.MZ_Color__r.Name}</p> -->
-                <p class="slds-text-heading_small">デザイン：{item.MZ_Design__r.MZ_DesignType__c}</p>
-                <!-- <p class="slds-text-heading_small">デザイン：{item.MZ_Design__r.Name}</p> -->
+                <p class="slds-text-heading_small">カラー：{item.MZ_Color__r.MZ_ColorGroup__c} - {item.MZ_Color__r.Name}</p>
+                <p class="slds-text-heading_small">デザイン：{item.MZ_Design__r.MZ_DesignType__c} - {item.MZ_Design__r.Name}</p>
                 <p class="slds-text-heading_small">シーズン：{item.MZ_Season__c}</p>
-                <!-- <p class="slds-text-heading_small">系統：{item.MZ_Style__c}</p> -->
+                <p class="slds-text-heading_small">スタイル：{item.MZ_Style__c}</p>
                 <p class="slds-text-heading_small">購入年月日：{item.MZ_PurchaseDate__c}</p>
                 <p class="slds-text-heading_small">購入金額：{item.MZ_PurchasePrice__c}円</p>
                 <p class="slds-text-heading_small">購入ショップ：{item.MZ_PurchaseShop__c}</p>
