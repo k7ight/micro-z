@@ -119,4 +119,9 @@ export default class MyCoordinate extends NavigationMixin(LightningElement) {
         };
         this[NavigationMixin.Navigate](pageRef);
     }
+
+    handleSeasonClear() {
+        this.season = '';
+        this.template.querySelector('c-view-item').season = '';
+    }
 }

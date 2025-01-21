@@ -51,6 +51,10 @@ export default class RecommendCoordinate extends NavigationMixin(LightningElemen
     }
 
     handleGenerate(event) {
+        if(this.selectedSeason == undefined) {
+            alert('対象シーズンを選択してください。');
+            return;
+        }
         this.season = this.selectedSeason;
         this.isLoading = true;
     }

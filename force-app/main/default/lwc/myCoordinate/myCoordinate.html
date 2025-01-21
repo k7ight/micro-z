@@ -4,6 +4,11 @@
             <lightning-card title="選択アイテム" icon-name="utility:standard_objects">
                 <template lwc:if={item.data}>
                     <c-view-item item={item.data.fields} onselectitem={handleSelectItem}></c-view-item>
+                    <div class="slds-align_absolute-center">
+                        <lightning-button variant="brand" label="クリア" icon-name="utility:refresh"
+                            class="slds-m-top_medium" onclick={handleSeasonClear}>
+                        </lightning-button>
+                    </div>
                 </template>
             </lightning-card>
         </lightning-layout-item>

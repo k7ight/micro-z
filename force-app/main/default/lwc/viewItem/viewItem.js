@@ -2,7 +2,7 @@ import { LightningElement, api } from 'lwc';
 
 export default class ViewItem extends LightningElement {
     @api item;
-    season = '';
+    @api season = '';
 
     get itemImage() {
         return `

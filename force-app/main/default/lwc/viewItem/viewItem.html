@@ -1,7 +1,7 @@
 <template>
     <div class="slds-box slds-m-around_medium" style={itemImage}>
     </div>
-    <lightning-combobox name="season" label="対象シーズン" value="" placeholder="シーズンを選択"
-        options={seasonOptions} onchange={handleSeasonChange} class="slds-m-around_small" required>
+    <lightning-combobox name="season" label="対象シーズン" value={season} placeholder="シーズンを選択"
+        options={seasonOptions} onchange={handleSeasonChange} class="slds-m-around_small">
     </lightning-combobox>
 </template>
