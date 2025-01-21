@@ -35,7 +35,6 @@ export default class ItemList extends NavigationMixin(LightningElement) {
     })
     items;
 
-    // 非同期ロジック
     async handleOpenModal(event) {
         const result = await ItemModal.open({
             size: 'small',

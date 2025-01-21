@@ -15,6 +15,14 @@
         <lightning-layout-item padding="around-small" size="12" medium-device-size="7" large-device-size="9">
             <lightning-card title="レコメンドコーデ" icon-name="utility:data_graph">
                 <div style="text-align: right;" class="slds-m-around_small">
+                    <lightning-button-group>
+                        <lightning-button variant="brand-outline" label="アイテム検索" 
+                            onclick={handleTransitSearchItem}></lightning-button>
+                        <lightning-button variant="brand-outline" label="マイコーデ表示" 
+                            onclick={handleTransitMyCoordinate}></lightning-button>
+                    </lightning-button-group>
+                </div>
+                <div style="text-align: right;" class="slds-m-around_small">
                     <lightning-button variant="brand" label="マイコーデ登録" icon-name="utility:sparkles" 
                         onclick={handleCreateMyCoordinates}>
                     </lightning-button>

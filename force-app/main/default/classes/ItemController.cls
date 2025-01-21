@@ -64,16 +64,14 @@ public class ItemController {
         // バインド変数を定義
         Map<String, Object> binds = new Map<String, Object>();
         
+        // 選択アイテムがある場合はコーデのいずれかのアイテムに一致するものを取得
          if (String.isNotBlank(itemId)) {
             conditions.add('(MZ_Outer__r.Id = :itemId OR MZ_Tops__r.Id = :itemId OR MZ_Inner__r.Id = :itemId OR MZ_Bottoms__r.Id = :itemId OR MZ_Shoes__r.Id = :itemId)');
             binds.put('itemId', itemId);
         }
+        // シーズンが指定されている場合はシーズンに一致するものを取得
         if (String.isNotBlank(season)) {
-            conditions.add('(MZ_Outer__r.MZ_Season__c INCLUDES(:season) OR MZ_Outer__c = null)');
-            conditions.add('(MZ_Tops__r.MZ_Season__c INCLUDES(:season) OR MZ_Tops__c = null)');
-            conditions.add('(MZ_Inner__r.MZ_Season__c INCLUDES(:season) OR MZ_Inner__c = null)');
-            conditions.add('(MZ_Bottoms__r.MZ_Season__c INCLUDES(:season) OR MZ_Bottoms__c = null)');
-            conditions.add('(MZ_Shoes__r.MZ_Season__c INCLUDES(:season) OR MZ_Shoes__c = null)');
+            conditions.add('MZ_Season__c = :season');
             binds.put('season', season);
         }
     

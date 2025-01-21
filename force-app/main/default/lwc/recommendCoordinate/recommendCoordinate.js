@@ -1,5 +1,6 @@
 import { LightningElement, wire } from 'lwc';
 import { CurrentPageReference } from 'lightning/navigation';
+import { NavigationMixin } from 'lightning/navigation';
 import { getRecord } from 'lightning/uiRecordApi';
 import generateCoordinates from '@salesforce/apex/ItemController.generateCoordinates'
 import createMyCoordinates from '@salesforce/apex/ItemController.createMyCoordinates';
@@ -13,7 +14,7 @@ import STYLE_FIELD from '@salesforce/schema/MZ_Item__c.MZ_Style__c';
 import URL_FIELD from '@salesforce/schema/MZ_Item__c.MZ_ItemURL__c';
 const FIELDS = [CATEGORY_FIELD, SUBCATEGORY_FIELD, COLORID_FIELD, DESIGNTYPE_FIELD, SEASON_FIELD, STYLE_FIELD, URL_FIELD];
 
-export default class RecommendCoordinate extends LightningElement {
+export default class RecommendCoordinate extends NavigationMixin(LightningElement) {
     recordId;
     season;
     selectedSeason;
@@ -56,22 +57,16 @@ export default class RecommendCoordinate extends LightningElement {
 
     handleCheck(event) {
         this.myCoordinates.push(event.detail.myCoordinate);
-        console.log('handleCheck call');
-        console.log('this.myCoordinates: '+ JSON.stringify(this.myCoordinates));
     }
     
     handleUncheck(event) {
         let index = this.myCoordinates.indexOf(event.detail.myCoordinate);
         if (index > -1) {
             this.myCoordinates.splice(index, 1);
-            console.log('handleUncheck call');
-            console.log('this.myCoordinates: '+ JSON.stringify(this.myCoordinates));
         }
     }
 
     async handleCreateMyCoordinates() {
-        console.log('handleCreateMyCoordinates call');
-        console.log('this.myCoordinates: '+ JSON.stringify(this.myCoordinates));
         const coordinateComp = this.template.querySelectorAll('c-coordinate')
 
         if(this.myCoordinates.length == 0) {
@@ -101,5 +96,28 @@ export default class RecommendCoordinate extends LightningElement {
                 })
             );
         }
+    }
+
+    handleTransitSearchItem() {
+        const pageRef = {
+            type: 'standard__navItemPage',
+            attributes: {
+                apiName: 'MZ_SearchItem_Tab'
+            }
+        };
+        this[NavigationMixin.Navigate](pageRef);
+    }
+
+    handleTransitMyCoordinate() {
+        const pageRef = {
+            type: 'standard__navItemPage',
+            attributes: {
+                apiName: 'MZ_MyCoordinate_Tab'
+            },
+            state: {
+                c__recordId: this.recordId
+            }
+        };
+        this[NavigationMixin.Navigate](pageRef);
     }
 }

@@ -1,5 +1,6 @@
 import { LightningElement, wire } from 'lwc';
 import { CurrentPageReference } from 'lightning/navigation';
+import { NavigationMixin } from 'lightning/navigation';
 import { getRecord } from 'lightning/uiRecordApi';
 import getMyCoordinates from '@salesforce/apex/ItemController.getMyCoordinates'
 import deleteMyCoordinates from '@salesforce/apex/ItemController.deleteMyCoordinates';
@@ -13,7 +14,7 @@ import STYLE_FIELD from '@salesforce/schema/MZ_Item__c.MZ_Style__c';
 import URL_FIELD from '@salesforce/schema/MZ_Item__c.MZ_ItemURL__c';
 const FIELDS = [CATEGORY_FIELD, SUBCATEGORY_FIELD, COLORID_FIELD, DESIGNTYPE_FIELD, SEASON_FIELD, STYLE_FIELD, URL_FIELD];
 
-export default class MyCoordinate extends LightningElement {
+export default class MyCoordinate extends NavigationMixin(LightningElement) {
     recordId;
     season;
     selectedCoordinates = [];
@@ -58,13 +59,13 @@ export default class MyCoordinate extends LightningElement {
         console.log('handleDeleteMyCoordinates call');
         console.log('this.selectedCoordinates: '+ JSON.stringify(this.selectedCoordinates));
         // const coordinateComp = this.template.querySelectorAll('c-coordinate')
-        const dialog = window.confirm('選択したコーデの削除を実行しますか?');
 
         if(this.selectedCoordinates.length == 0) {
             alert('削除対象コーデを選択してください。');
             return;
         }
 
+        const dialog = window.confirm('選択したコーデの削除を実行しますか?');
         if (!dialog) {
             return;
         }
@@ -94,5 +95,28 @@ export default class MyCoordinate extends LightningElement {
                 })
             );
         }
+    }
+
+    handleTransitSearchItem() {
+        const pageRef = {
+            type: 'standard__navItemPage',
+            attributes: {
+                apiName: 'MZ_SearchItem_Tab'
+            }
+        };
+        this[NavigationMixin.Navigate](pageRef);
+    }
+
+    handleTransitRecommendCoordinate() {
+        const pageRef = {
+            type: 'standard__navItemPage',
+            attributes: {
+                apiName: 'MZ_RecommendCoordinate_Tab'
+            },
+            state: {
+                c__recordId: this.recordId
+            }
+        };
+        this[NavigationMixin.Navigate](pageRef);
     }
 }

@@ -10,6 +10,14 @@
         <lightning-layout-item padding="around-small" size="12" medium-device-size="7" large-device-size="9">
             <lightning-card title="マイコーデ" icon-name="utility:sparkles">
                 <div style="text-align: right;" class="slds-m-around_small">
+                    <lightning-button-group>
+                        <lightning-button variant="brand-outline" label="アイテム検索" 
+                            onclick={handleTransitSearchItem}></lightning-button>
+                        <lightning-button variant="brand-outline" label="レコメンドコーデ生成" 
+                            onclick={handleTransitRecommendCoordinate}></lightning-button>
+                    </lightning-button-group>
+                </div>
+                <div style="text-align: right;" class="slds-m-around_small">
                     <lightning-button variant="brand" label="削除" icon-name="utility:delete" 
                         onclick={handleDeleteMyCoordinates}>
                     </lightning-button>
