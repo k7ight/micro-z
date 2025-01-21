@@ -57,10 +57,15 @@ export default class MyCoordinate extends LightningElement {
     async handleDeleteMyCoordinates() {
         console.log('handleDeleteMyCoordinates call');
         console.log('this.selectedCoordinates: '+ JSON.stringify(this.selectedCoordinates));
-        const coordinateComp = this.template.querySelectorAll('c-coordinate')
+        // const coordinateComp = this.template.querySelectorAll('c-coordinate')
+        const dialog = window.confirm('選択したコーデの削除を実行しますか?');
 
         if(this.selectedCoordinates.length == 0) {
             alert('削除対象コーデを選択してください。');
+            return;
+        }
+
+        if (!dialog) {
             return;
         }
 
@@ -73,10 +78,13 @@ export default class MyCoordinate extends LightningElement {
                     variant: 'success'
                 })
             );
-            coordinateComp.forEach((child) => {
-                child.isChecked = false;
-            });
-            this.selectedCoordinates = [];
+            // coordinateComp.forEach((child) => {
+            //     child.isChecked = false;
+            // });
+            // this.selectedCoordinates = [];
+            const retUrl = `lightning/n/MZ_MyCoordinate_Tab/?c__recordId=${this.recordId}`;
+            setTimeout(() => { window.location.href = retUrl; }, 500);
+
         } catch(error) {
             this.dispatchEvent(
                 new ShowToastEvent({

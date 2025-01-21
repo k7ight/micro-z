@@ -34,7 +34,7 @@ export default class ItemModal extends LightningModal {
             );
 
             this.close();
-            setTimeout(() => { window.location.href = retUrl; }, 1000);
+            setTimeout(() => { window.location.href = retUrl; }, 500);
 
         } catch (error) {
 
