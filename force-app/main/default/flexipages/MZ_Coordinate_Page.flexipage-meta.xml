@@ -83,6 +83,18 @@
                 <identifier>RecordMZ_Shoes_cField</identifier>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldItem>Record.MZ_CoordinateScore__c</fieldItem>
+                <identifier>RecordMZ_CoordinateScore__cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldItem>Record.MZ_Season__c</fieldItem>
+                <identifier>RecordMZ_Season__cField</identifier>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-b695ac44-91a0-4411-9d2c-d2f9803f09e8</name>
         <type>Facet</type>
     </flexiPageRegions>

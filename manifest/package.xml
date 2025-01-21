@@ -3,6 +3,7 @@
 	<types>
 		<members>ContentDocumentLinkTriggerHandler</members>
 		<members>ContentDocumentLinkTriggerHandlerTest</members>
+		<members>CoordinateComparator</members>
 		<members>ItemController</members>
 		<name>ApexClass</name>
 	</types>
@@ -15,7 +16,7 @@
 		<name>BrandingSet</name>
 	</types>
 	<types>
-		<members>MZ_Micro_Z</members>
+		<members>MZ_Microz</members>
 		<name>CustomApplication</name>
 	</types>
 	<types>
@@ -25,8 +26,10 @@
 		<members>MZ_Color__c.MZ_ColorGroup__c</members>
 		<members>MZ_Color__c.MZ_ColorType__c</members>
 		<members>MZ_Coordinate__c.MZ_Bottoms__c</members>
+		<members>MZ_Coordinate__c.MZ_CoordinateScore__c</members>
 		<members>MZ_Coordinate__c.MZ_Inner__c</members>
 		<members>MZ_Coordinate__c.MZ_Outer__c</members>
+		<members>MZ_Coordinate__c.MZ_Season__c</members>
 		<members>MZ_Coordinate__c.MZ_Shoes__c</members>
 		<members>MZ_Coordinate__c.MZ_Tops__c</members>
 		<members>MZ_Design__c.MZ_DesignType__c</members>
@@ -40,6 +43,7 @@
 		<members>MZ_Item__c.MZ_Hood__c</members>
 		<members>MZ_Item__c.MZ_ImageFileExtension__c</members>
 		<members>MZ_Item__c.MZ_ItemImage__c</members>
+		<members>MZ_Item__c.MZ_ItemURLText__c</members>
 		<members>MZ_Item__c.MZ_ItemURL__c</members>
 		<members>MZ_Item__c.MZ_Length__c</members>
 		<members>MZ_Item__c.MZ_Material__c</members>
@@ -71,8 +75,15 @@
 		<name>CustomTab</name>
 	</types>
 	<types>
+		<members>MZ_Microz_DashboardFolder/spfzPOyMAVBKRicOPvZpPPfTEIrnRV</members>
+		<name>Dashboard</name>
+	</types>
+	<types>
 		<members>MZ_Coordinate_Page</members>
+		<members>MZ_Home_Page</members>
 		<members>MZ_Item_Page</members>
+		<members>MZ_MyCoordinate_Page</members>
+		<members>MZ_RecommendCoordinate_Page</members>
 		<members>MZ_SearchItem_Page</members>
 		<members>micro_z_UtilityBar</members>
 		<name>FlexiPage</name>
@@ -80,12 +91,14 @@
 	<types>
 		<members>MZ_FL_CreateItem</members>
 		<members>MZ_FL_DuplicateCheckColorMatching</members>
+		<members>MZ_FL_DuplicateCheckCoordinate</members>
 		<members>MZ_FL_SetItemImage</members>
 		<name>Flow</name>
 	</types>
 	<types>
 		<members>MZ_FL_CreateItem</members>
 		<members>MZ_FL_DuplicateCheckColorMatching</members>
+		<members>MZ_FL_DuplicateCheckCoordinate</members>
 		<members>MZ_FL_SetItemImage</members>
 		<name>FlowDefinition</name>
 	</types>
@@ -123,6 +136,15 @@
 	<types>
 		<members>MZ_Item__c.MZ_Master_RecordType</members>
 		<name>RecordType</name>
+	</types>
+	<types>
+		<members>MZ_Microz_ReportFolder/MZ_Report_ItemByCategory</members>
+		<members>MZ_Microz_ReportFolder/MZ_Report_ItemByCategoryAndColor</members>
+		<members>MZ_Microz_ReportFolder/MZ_Report_ItemByCategoryAndColorType</members>
+		<members>MZ_Microz_ReportFolder/MZ_Report_ItemByCategoryAndDesign</members>
+		<members>MZ_Microz_ReportFolder/MZ_Report_ItemByCategoryAndStyle</members>
+		<members>MZ_Microz_ReportFolder/MZ_Report_ItemByColor</members>
+		<name>Report</name>
 	</types>
 	<types>
 		<members>MZ_Item_ReportType</members>

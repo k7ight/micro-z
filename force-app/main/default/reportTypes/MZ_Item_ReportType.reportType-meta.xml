@@ -181,6 +181,11 @@
             <field>MZ_ItemURL__c</field>
             <table>MZ_Item__c</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>MZ_ItemURLText__c</field>
+            <table>MZ_Item__c</table>
+        </columns>
         <masterLabel>アイテム</masterLabel>
     </sections>
 </ReportType>
