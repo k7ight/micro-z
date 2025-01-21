@@ -22,25 +22,25 @@
                             onclick={handleTransitMyCoordinate}></lightning-button>
                     </lightning-button-group>
                 </div>
-                <div style="text-align: right;" class="slds-m-around_small">
-                    <lightning-button variant="brand" label="マイコーデ登録" icon-name="utility:sparkles" 
-                        onclick={handleCreateMyCoordinates}>
-                    </lightning-button>
-                </div>
-                <lightning-layout multiple-rows="true">
-                    <template lwc:if={isLoading}>
-                        <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
-                    </template>
-                    <template lwc:else>
-                        <template lwc:if={recommendCoordinates}>
+                <template lwc:if={isLoading}>
+                    <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+                </template>
+                <template lwc:else>
+                    <template lwc:if={recommendCoordinates}>
+                        <div style="text-align: right;" class="slds-m-around_small">
+                            <lightning-button variant="brand" label="マイコーデ登録" icon-name="utility:sparkles" 
+                                onclick={handleCreateMyCoordinates}>
+                            </lightning-button>
+                        </div>
+                        <lightning-layout multiple-rows="true">
                             <template for:each={recommendCoordinates} for:item="coordinate">
                                 <lightning-layout-item key={coordinate.Id} padding="around-small" size="12">
                                     <c-coordinate coordinate={coordinate} oncheck={handleCheck} onuncheck={handleUncheck}></c-coordinate>
                                 </lightning-layout-item>
                             </template>
-                        </template>
+                        </lightning-layout>
                     </template>
-                </lightning-layout>
+                </template>
             </lightning-card>
         </lightning-layout-item>
     </lightning-layout>

@@ -22,20 +22,25 @@
                             onclick={handleTransitRecommendCoordinate}></lightning-button>
                     </lightning-button-group>
                 </div>
-                <div style="text-align: right;" class="slds-m-around_small">
-                    <lightning-button variant="brand" label="削除" icon-name="utility:delete" 
-                        onclick={handleDeleteMyCoordinates}>
-                    </lightning-button>
-                </div>
-                <lightning-layout multiple-rows="true">
-                    <template lwc:if={myCoordinates.data}>
+                <template lwc:if={ExistMyCoordinates}>
+                    <div style="text-align: right;" class="slds-m-around_small">
+                        <lightning-button variant="brand" label="削除" icon-name="utility:delete" 
+                            onclick={handleDeleteMyCoordinates}>
+                        </lightning-button>
+                    </div>
+                    <lightning-layout multiple-rows="true">
                         <template for:each={myCoordinates.data} for:item="coordinate">
                             <lightning-layout-item key={coordinate.Id} padding="around-small" size="12">
                                 <c-coordinate coordinate={coordinate} oncheck={handleCheck} onuncheck={handleUncheck}></c-coordinate>
                             </lightning-layout-item>
                         </template>
-                    </template>
-                </lightning-layout>
+                    </lightning-layout>
+                </template>
+                <template lwc:else>
+                    <div class="slds-text-heading_small slds-text-color_destructive slds-m-vertical_xx-large slds-align_absolute-center">
+                        <strong>対象のマイコーデは未登録です。</strong>
+                    </div>
+                </template>
             </lightning-card>
         </lightning-layout-item>
     </lightning-layout>

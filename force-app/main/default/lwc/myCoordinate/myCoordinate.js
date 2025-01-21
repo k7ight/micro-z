@@ -36,28 +36,26 @@ export default class MyCoordinate extends NavigationMixin(LightningElement) {
     })
     myCoordinates;
 
+    get ExistMyCoordinates() {
+        return this.myCoordinates.data && this.myCoordinates.data.length > 0;
+    }
+
     handleSelectItem(event) {
         this.season = event.detail.season;
     }
 
     handleCheck(event) {
         this.selectedCoordinates.push(event.detail.myCoordinate);
-        console.log('handleCheck call');
-        console.log('this.selectedCoordinates: '+ JSON.stringify(this.selectedCoordinates));
     }
     
     handleUncheck(event) {
         let index = this.selectedCoordinates.indexOf(event.detail.myCoordinate);
         if (index > -1) {
             this.selectedCoordinates.splice(index, 1);
-            console.log('handleUncheck call');
-            console.log('this.selectedCoordinates: '+ JSON.stringify(this.selectedCoordinates));
         }
     }
 
     async handleDeleteMyCoordinates() {
-        console.log('handleDeleteMyCoordinates call');
-        console.log('this.selectedCoordinates: '+ JSON.stringify(this.selectedCoordinates));
         // const coordinateComp = this.template.querySelectorAll('c-coordinate')
 
         if(this.selectedCoordinates.length == 0) {
