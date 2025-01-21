@@ -35,7 +35,7 @@ export default class MyCoordinate extends LightningElement {
     })
     myCoordinates;
 
-    handleGenerate(event) {
+    handleSelectItem(event) {
         this.season = event.detail.season;
     }
 

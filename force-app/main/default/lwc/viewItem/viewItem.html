@@ -1,14 +1,7 @@
 <template>
-    <lightning-card title="選択アイテム" icon-name="utility:standard_objects">
-        <div class="slds-box slds-m-around_medium" style={itemImage}>
-        </div>
-        <lightning-combobox name="season" label="対象シーズン" value="" placeholder="シーズンを選択"
-            options={seasonOptions} onchange={handleSeasonChange} class="slds-m-around_small" required>
-        </lightning-combobox>
-        <div class="slds-align_absolute-center">
-            <lightning-button variant="brand" label="生成" icon-name="utility:data_graph"
-                class="slds-m-top_medium" onclick={handleGenerate}>
-            </lightning-button>
-        </div>
-    </lightning-card>
+    <div class="slds-box slds-m-around_medium" style={itemImage}>
+    </div>
+    <lightning-combobox name="season" label="対象シーズン" value="" placeholder="シーズンを選択"
+        options={seasonOptions} onchange={handleSeasonChange} class="slds-m-around_small" required>
+    </lightning-combobox>
 </template>

@@ -1,9 +1,16 @@
 <template>
     <lightning-layout multiple-rows="true">
         <lightning-layout-item padding="around-small" size="12" medium-device-size="5" large-device-size="3">
-            <template lwc:if={item.data}>
-                <c-view-item item={item.data.fields} ongenerate={handleGenerate}></c-view-item>
-            </template>
+            <lightning-card title="選択アイテム" icon-name="utility:standard_objects">
+                <template lwc:if={item.data}>
+                    <c-view-item item={item.data.fields} onselectitem={handleSelectItem}></c-view-item>
+                    <div class="slds-align_absolute-center">
+                        <lightning-button variant="brand" label="生成" icon-name="utility:data_graph"
+                            class="slds-m-top_medium" onclick={handleGenerate}>
+                        </lightning-button>
+                    </div>
+                </template>
+            </lightning-card>
         </lightning-layout-item>
         <lightning-layout-item padding="around-small" size="12" medium-device-size="7" large-device-size="9">
             <lightning-card title="レコメンドコーデ" icon-name="utility:data_graph">

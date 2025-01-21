@@ -57,7 +57,7 @@ public class ItemController {
     public static List<MZ_Coordinate__c> getMyCoordinates(String itemId, String season) {
         
         String query = 'SELECT Id, MZ_Outer__r.MZ_ItemURL__c, MZ_Tops__r.MZ_ItemURL__c, MZ_Inner__r.MZ_ItemURL__c, ';
-        query += 'MZ_Bottoms__r.MZ_ItemURL__c, MZ_Shoes__r.MZ_ItemURL__c FROM MZ_Coordinate__c ';
+        query += 'MZ_Bottoms__r.MZ_ItemURL__c, MZ_Shoes__r.MZ_ItemURL__c, MZ_CoordinateScore__c FROM MZ_Coordinate__c ';
         
         // 条件用のリストを定義
         List<String> conditions = new List<String>();
@@ -81,6 +81,9 @@ public class ItemController {
         if (!conditions.isEmpty()) {
             query += ' WHERE ' + String.join(conditions, ' AND ');
         }
+        
+        // スコア降順にソート
+        query += ' ORDER BY MZ_CoordinateScore__c DESC';
                            
         return Database.queryWithBinds(query, binds, AccessLevel.USER_MODE);
     }

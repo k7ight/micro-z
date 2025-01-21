@@ -22,28 +22,37 @@ export default class ViewItem extends LightningElement {
     }
 
     handleSeasonChange(event) {
-        this.season = event.detail.value
-    }
-
-    handleGenerate() {
-        if(this.season === '') {
-            alert('対象シーズンを選択してください。');
-            return;
-        }
-
-        const event = new CustomEvent(
-            'generate',
+        this.season = event.detail.value;
+        const ce = new CustomEvent(
+            'selectitem',
             {
                 detail: {
-                    category: this.item.MZ_Category__c.value,
-                    subCategory: this.item.MZ_SubCategory__c.value,
-                    colorId: this.item.MZ_Color__r.value.fields.Id.value,
-                    designType: this.item.MZ_Design__r.value.fields.MZ_DesignType__c.value,
-                    season: this.season,
-                    style: this.item.MZ_Style__c.value
+                    season: this.season
                 }
             }
         );
-        this.dispatchEvent(event);
+        this.dispatchEvent(ce);
     }
+
+    // handleGenerate() {
+    //     if(this.season === '') {
+    //         alert('対象シーズンを選択してください。');
+    //         return;
+    //     }
+
+    //     const event = new CustomEvent(
+    //         'generate',
+    //         {
+    //             detail: {
+    //                 category: this.item.MZ_Category__c.value,
+    //                 subCategory: this.item.MZ_SubCategory__c.value,
+    //                 colorId: this.item.MZ_Color__r.value.fields.Id.value,
+    //                 designType: this.item.MZ_Design__r.value.fields.MZ_DesignType__c.value,
+    //                 season: this.season,
+    //                 style: this.item.MZ_Style__c.value
+    //             }
+    //         }
+    //     );
+    //     this.dispatchEvent(event);
+    // }
 }

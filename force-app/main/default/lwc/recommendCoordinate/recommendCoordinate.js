@@ -16,6 +16,7 @@ const FIELDS = [CATEGORY_FIELD, SUBCATEGORY_FIELD, COLORID_FIELD, DESIGNTYPE_FIE
 export default class RecommendCoordinate extends LightningElement {
     recordId;
     season;
+    selectedSeason;
     isLoading = false;
     recommendCoordinates;
     myCoordinates = [];
@@ -44,8 +45,12 @@ export default class RecommendCoordinate extends LightningElement {
         this.isLoading = false;
     }
 
+    handleSelectItem(event) {
+        this.selectedSeason = event.detail.season;
+    }
+
     handleGenerate(event) {
-        this.season = event.detail.season;
+        this.season = this.selectedSeason;
         this.isLoading = true;
     }
 

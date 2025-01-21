@@ -1,9 +1,11 @@
 <template>
     <lightning-layout multiple-rows="true">
         <lightning-layout-item padding="around-small" size="12" medium-device-size="5" large-device-size="3">
-            <template lwc:if={item.data}>
-                <c-view-item item={item.data.fields} ongenerate={handleGenerate}></c-view-item>
-            </template>
+            <lightning-card title="選択アイテム" icon-name="utility:standard_objects">
+                <template lwc:if={item.data}>
+                    <c-view-item item={item.data.fields} onselectitem={handleSelectItem}></c-view-item>
+                </template>
+            </lightning-card>
         </lightning-layout-item>
         <lightning-layout-item padding="around-small" size="12" medium-device-size="7" large-device-size="9">
             <lightning-card title="マイコーデ" icon-name="utility:sparkles">
