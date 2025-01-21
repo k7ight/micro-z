@@ -6,8 +6,9 @@ export default class Coordinate extends LightningElement {
     myCoordinates = [];
 
     get outerImage() {
+        const itemURL = this.coordinate.MZ_Outer__r.MZ_ItemURL__c != null ? this.coordinate.MZ_Outer__r.MZ_ItemURL__c : this.coordinate.MZ_Outer__r.MZ_ItemURLText__c;
         return `
-            background-image: url('${this.coordinate.MZ_Outer__r.MZ_ItemURLText__c}'); 
+            background-image: url('${itemURL}'); 
             background-size: cover; 
             background-position: center;
             aspect-ratio: 1;
@@ -15,8 +16,9 @@ export default class Coordinate extends LightningElement {
     }
 
     get topsImage() {
+        const itemURL = this.coordinate.MZ_Tops__r.MZ_ItemURL__c != null ? this.coordinate.MZ_Tops__r.MZ_ItemURL__c : this.coordinate.MZ_Tops__r.MZ_ItemURLText__c;
         return `
-            background-image: url('${this.coordinate.MZ_Tops__r.MZ_ItemURLText__c}'); 
+            background-image: url('${itemURL}'); 
             background-size: cover; 
             background-position: center;
             aspect-ratio: 1;
@@ -24,8 +26,9 @@ export default class Coordinate extends LightningElement {
     }
 
     get innerImage() {
+        const itemURL = this.coordinate.MZ_Inner__r.MZ_ItemURL__c != null ? this.coordinate.MZ_Inner__r.MZ_ItemURL__c : this.coordinate.MZ_Inner__r.MZ_ItemURLText__c;
         return `
-            background-image: url('${this.coordinate.MZ_Inner__r.MZ_ItemURLText__c}'); 
+            background-image: url('${itemURL}'); 
             background-size: cover; 
             background-position: center;
             aspect-ratio: 1;
@@ -33,8 +36,9 @@ export default class Coordinate extends LightningElement {
     }
 
     get bottomsImage() {
+        const itemURL = this.coordinate.MZ_Bottoms__r.MZ_ItemURL__c != null ? this.coordinate.MZ_Bottoms__r.MZ_ItemURL__c : this.coordinate.MZ_Bottoms__r.MZ_ItemURLText__c;
         return `
-            background-image: url('${this.coordinate.MZ_Bottoms__r.MZ_ItemURLText__c}'); 
+            background-image: url('${itemURL}'); 
             background-size: cover; 
             background-position: center;
             aspect-ratio: 1;
@@ -42,8 +46,9 @@ export default class Coordinate extends LightningElement {
     }
 
     get shoesImage() {
+        const itemURL = this.coordinate.MZ_Shoes__r.MZ_ItemURL__c != null ? this.coordinate.MZ_Shoes__r.MZ_ItemURL__c : this.coordinate.MZ_Shoes__r.MZ_ItemURLText__c;
         return `
-            background-image: url('${this.coordinate.MZ_Shoes__r.MZ_ItemURLText__c}'); 
+            background-image: url('${itemURL}'); 
             background-size: cover; 
             background-position: center;
             aspect-ratio: 1;

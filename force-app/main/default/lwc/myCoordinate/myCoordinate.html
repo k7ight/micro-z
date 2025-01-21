@@ -1,0 +1,27 @@
+<template>
+    <lightning-layout multiple-rows="true">
+        <lightning-layout-item padding="around-small" size="12" medium-device-size="5" large-device-size="3">
+            <template lwc:if={item.data}>
+                <c-view-item item={item.data.fields} ongenerate={handleGenerate}></c-view-item>
+            </template>
+        </lightning-layout-item>
+        <lightning-layout-item padding="around-small" size="12" medium-device-size="7" large-device-size="9">
+            <lightning-card title="マイコーデ" icon-name="utility:sparkles">
+                <div style="text-align: right;" class="slds-m-around_small">
+                    <lightning-button variant="brand" label="削除" icon-name="utility:delete" 
+                        onclick={handleDeleteMyCoordinates}>
+                    </lightning-button>
+                </div>
+                <lightning-layout multiple-rows="true">
+                    <template lwc:if={myCoordinates.data}>
+                        <template for:each={myCoordinates.data} for:item="coordinate">
+                            <lightning-layout-item key={coordinate.Id} padding="around-small" size="12">
+                                <c-coordinate coordinate={coordinate} oncheck={handleCheck} onuncheck={handleUncheck}></c-coordinate>
+                            </lightning-layout-item>
+                        </template>
+                    </template>
+                </lightning-layout>
+            </lightning-card>
+        </lightning-layout-item>
+    </lightning-layout>
+</template>

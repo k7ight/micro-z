@@ -23,7 +23,8 @@
                 class="slds-m-around_x-small" onclick={handleEditItem}></lightning-button>
             <lightning-button variant="brand" label="アイテム削除" icon-name="utility:delete"
                 class="slds-m-around_x-small" onclick={handleDeleteItem}></lightning-button>
-            <lightning-button variant="brand" label="マイコーデ表示" icon-name="utility:sparkles" class="slds-m-around_x-small"></lightning-button>
+            <!-- <lightning-button variant="brand" label="マイコーデ表示" icon-name="utility:sparkles" class="slds-m-around_x-small"></lightning-button> -->
+            <c-view-my-coordinate item={item} onnavigate={handleCloseModal}></c-view-my-coordinate>
             <c-generate-coordinate item={item} onnavigate={handleCloseModal}></c-generate-coordinate>
         </lightning-layout>
     </lightning-modal-footer>
