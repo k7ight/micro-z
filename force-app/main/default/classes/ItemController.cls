@@ -269,7 +269,7 @@ public class ItemController {
                             for(MZ_Item__c inrs: innerList[i]) {
                                 for(MZ_Item__c btms: bottomsList[i]) {
                                     for(MZ_Item__c shs: shoesList[i]) {
-                                        MZ_Coordinate__c coordinate = new MZ_Coordinate__c(MZ_Outer__c = otrs.Id, MZ_Tops__c = tps.Id, MZ_Inner__c = inrs.Id, MZ_Bottoms__c = btms.Id, MZ_Shoes__c = shs.Id);
+                                        MZ_Coordinate__c coordinate = new MZ_Coordinate__c(MZ_Outer__c = otrs.Id, MZ_Tops__c = tps.Id, MZ_Inner__c = inrs.Id, MZ_Bottoms__c = btms.Id, MZ_Shoes__c = shs.Id, MZ_season__c = season);
 
                                         coordinate.MZ_Outer__r = new MZ_Item__c(Id = otrs.Id, MZ_Style__c = otrs.MZ_Style__c, MZ_ItemURLText__c = otrs.MZ_ItemURL__c);
                                         coordinate.MZ_Outer__r.MZ_Color__r = new MZ_Color__c(Id = otrs.MZ_Color__r.Id, MZ_ColorType__c = otrs.MZ_Color__r.MZ_ColorType__c);
@@ -301,7 +301,7 @@ public class ItemController {
                         for(MZ_Item__c inrs: innerList[i]) {
                             for(MZ_Item__c btms: bottomsList[i]) {
                                 for(MZ_Item__c shs: shoesList[i]) {
-                                    MZ_Coordinate__c coordinate = new MZ_Coordinate__c(MZ_Outer__c = otrs.Id, MZ_Inner__c = inrs.Id, MZ_Bottoms__c = btms.Id, MZ_Shoes__c = shs.Id);
+                                    MZ_Coordinate__c coordinate = new MZ_Coordinate__c(MZ_Outer__c = otrs.Id, MZ_Inner__c = inrs.Id, MZ_Bottoms__c = btms.Id, MZ_Shoes__c = shs.Id, MZ_season__c = season);
                                     
                                     coordinate.MZ_Outer__r = new MZ_Item__c(Id = otrs.Id, MZ_Style__c = otrs.MZ_Style__c, MZ_ItemURLText__c = otrs.MZ_ItemURL__c);
                                     coordinate.MZ_Outer__r.MZ_Color__r = new MZ_Color__c(Id = otrs.MZ_Color__r.Id, MZ_ColorType__c = otrs.MZ_Color__r.MZ_ColorType__c);
@@ -331,7 +331,7 @@ public class ItemController {
                     for(MZ_Item__c inrs: innerList[i]) {
                         for(MZ_Item__c btms: bottomsList[i]) {
                             for(MZ_Item__c shs: shoesList[i]) {
-                                MZ_Coordinate__c coordinate = new MZ_Coordinate__c(MZ_Tops__c = tps.Id, MZ_Inner__c = inrs.Id, MZ_Bottoms__c = btms.Id, MZ_Shoes__c = shs.Id);
+                                MZ_Coordinate__c coordinate = new MZ_Coordinate__c(MZ_Tops__c = tps.Id, MZ_Inner__c = inrs.Id, MZ_Bottoms__c = btms.Id, MZ_Shoes__c = shs.Id, MZ_season__c = season);
                                 
                                 coordinate.MZ_Tops__r = new MZ_Item__c(Id = tps.Id, MZ_Style__c = tps.MZ_Style__c, MZ_ItemURLText__c = tps.MZ_ItemURL__c);
                                 coordinate.MZ_Tops__r.MZ_Color__r = new MZ_Color__c(Id = tps.MZ_Color__r.Id, MZ_ColorType__c = tps.MZ_Color__r.MZ_ColorType__c);
@@ -359,7 +359,8 @@ public class ItemController {
                 for(MZ_Item__c inrs: innerList[i]) {
                     for(MZ_Item__c btms: bottomsList[i]) {
                         for(MZ_Item__c shs: shoesList[i]) {
-                            MZ_Coordinate__c coordinate = new MZ_Coordinate__c(MZ_Inner__c = inrs.Id, MZ_Bottoms__c = btms.Id, MZ_Shoes__c = shs.Id);
+                            MZ_Coordinate__c coordinate = new MZ_Coordinate__c(MZ_Inner__c = inrs.Id, MZ_Bottoms__c = btms.Id, MZ_Shoes__c = shs.Id, MZ_season__c = season);
+                            
                             coordinate.MZ_Inner__r = new MZ_Item__c(Id = inrs.Id, MZ_Style__c = inrs.MZ_Style__c, MZ_ItemURLText__c = inrs.MZ_ItemURL__c);
                             coordinate.MZ_Inner__r.MZ_Color__r = new MZ_Color__c(Id = inrs.MZ_Color__r.Id, MZ_ColorType__c = inrs.MZ_Color__r.MZ_ColorType__c);
                             coordinate.MZ_Inner__r.MZ_Design__r = new MZ_Design__c(Id = inrs.MZ_Design__r.Id, MZ_DesignType__c = inrs.MZ_Design__r.MZ_DesignType__c);

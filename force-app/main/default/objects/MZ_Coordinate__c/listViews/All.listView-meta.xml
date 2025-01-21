@@ -7,6 +7,8 @@
     <columns>MZ_Inner__c</columns>
     <columns>MZ_Bottoms__c</columns>
     <columns>MZ_Shoes__c</columns>
+    <columns>MZ_CoordinateScore__c</columns>
+    <columns>MZ_Season__c</columns>
     <filterScope>Everything</filterScope>
     <label>すべて選択</label>
 </ListView>
