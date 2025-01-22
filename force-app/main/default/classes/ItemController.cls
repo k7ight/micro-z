@@ -463,14 +463,19 @@ public class ItemController {
     }
     
     @AuraEnabled
-    public static void createMyCoordinates(List<MZ_Coordinate__c> myCoordinates) {
+    public static List<String> createMyCoordinates(List<MZ_Coordinate__c> myCoordinates) {
+        List<String> errors = new List<String>();
         if (myCoordinates != null || !myCoordinates.isEmpty()) {
-            try {
-                insert myCoordinates;
-            } catch(DmlException e) {
-                throw new AuraHandledException('[ERROR] myCoordinates can\'t insert: ' + e.getMessage());
+            Database.SaveResult[] results = Database.insert(myCoordinates, false);
+            for(Database.SaveResult result: results) {
+                if(!result.isSuccess()) {
+                    for(Database.Error error: result.getErrors()) {
+                        errors.add(error.getMessage());                      
+                    }
+                }
             }
         }
+        return errors;
      }
     
     @AuraEnabled
@@ -479,7 +484,7 @@ public class ItemController {
             try {
                 delete myCoordinates;
             } catch(DmlException e) {
-                throw new AuraHandledException('[ERROR] myCoordinates can\'t delete: ' + e.getMessage());
+                throw new AuraHandledException(e.getMessage());
             }
         }
     }
