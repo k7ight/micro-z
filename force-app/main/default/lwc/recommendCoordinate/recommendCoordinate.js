@@ -79,14 +79,24 @@ export default class RecommendCoordinate extends NavigationMixin(LightningElemen
         }
 
         try {
-            await createMyCoordinates({myCoordinates: this.myCoordinates});
-            this.dispatchEvent(
-                new ShowToastEvent({
-                    title: 'Success',
-                    message: 'マイコーデに登録されました',
-                    variant: 'success'
-                })
-            );
+            const errors = await createMyCoordinates({myCoordinates: this.myCoordinates});
+            if(errors.length > 0) {
+                this.dispatchEvent(
+                    new ShowToastEvent({
+                        title: 'Error',
+                        message: errors.length + '件のマイコーデの登録に失敗しました: '  + errors.join(', '),
+                        variant: 'error'
+                    })
+                );
+            } else {
+                this.dispatchEvent(
+                    new ShowToastEvent({
+                        title: 'Success',
+                        message: 'マイコーデに登録されました',
+                        variant: 'success'
+                    })
+                );
+            }
             coordinateComp.forEach((child) => {
                 child.isChecked = false;
             });
@@ -95,7 +105,7 @@ export default class RecommendCoordinate extends NavigationMixin(LightningElemen
             this.dispatchEvent(
                 new ShowToastEvent({
                     title: 'Error',
-                    message: 'マイコーデの登録に失敗しました: ' + error.body.message,
+                    message: 'マイコーデの登録中に問題が発生しました: ' + error.body.message,
                     variant: 'error'
                 })
             );
