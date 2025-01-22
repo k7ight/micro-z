@@ -58,9 +58,6 @@ export default class Coordinate extends LightningElement {
     handleCheckboxChange(event) {
         this.isChecked = event.target.checked;
         const eventName = this.isChecked ? 'check' : 'uncheck'
-        console.log('handleCheckboxChange call');
-        console.log(event.target.checked);
-        console.log(event.target.name);
         const ce = new CustomEvent(
             eventName,
             {

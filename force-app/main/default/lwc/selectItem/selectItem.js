@@ -1,6 +1,6 @@
 import { LightningElement, api } from 'lwc';
 
-export default class Item extends LightningElement {
+export default class SelectItem extends LightningElement {
     @api item;
 
     get itemImage() {
@@ -12,7 +12,7 @@ export default class Item extends LightningElement {
         `;
     }
 
-    handleItemClick() {
-        this.dispatchEvent(new CustomEvent('openmodal', {detail: this.item}));
+    handleSelectItem() {
+        this.dispatchEvent(new CustomEvent('selectitem', {detail: this.item}));
     }
 }

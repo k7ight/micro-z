@@ -10,6 +10,13 @@
                         </lightning-button>
                     </div>
                 </template>
+                <template lwc:else>
+                    <div class="slds-box slds-m-around_medium slds-align_absolute-center" style={noItem}>
+                        <lightning-button variant="brand" label="アイテム選択" icon-name="utility:undeprecate"
+                            onclick={handleOpenModal}>
+                        </lightning-button>
+                    </div>
+                </template>
             </lightning-card>
         </lightning-layout-item>
         <lightning-layout-item padding="around-small" size="12" medium-device-size="7" large-device-size="9">

@@ -5,6 +5,7 @@ import { getRecord } from 'lightning/uiRecordApi';
 import generateCoordinates from '@salesforce/apex/ItemController.generateCoordinates'
 import createMyCoordinates from '@salesforce/apex/ItemController.createMyCoordinates';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+import ItemSelectModal from 'c/itemSelectModal';
 import CATEGORY_FIELD from '@salesforce/schema/MZ_Item__c.MZ_Category__c';
 import SUBCATEGORY_FIELD from '@salesforce/schema/MZ_Item__c.MZ_SubCategory__c';
 import SEASON_FIELD from '@salesforce/schema/MZ_Item__c.MZ_Season__c';
@@ -133,5 +134,21 @@ export default class RecommendCoordinate extends NavigationMixin(LightningElemen
             }
         };
         this[NavigationMixin.Navigate](pageRef);
+    }
+
+    get noItem() {
+        return `
+            background-color: #DDDDDD;
+            background-size: cover; 
+            background-position: center;
+            aspect-ratio: 1;
+        `;
+    }
+
+    async handleOpenModal() {
+        const result = await ItemSelectModal.open({
+            size: 'large'
+        });
+        this.recordId = result;
     }
 }
