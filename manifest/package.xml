@@ -85,7 +85,6 @@
 		<members>MZ_MyCoordinate_Page</members>
 		<members>MZ_RecommendCoordinate_Page</members>
 		<members>MZ_SearchItem_Page</members>
-		<members>micro_z_UtilityBar</members>
 		<name>FlexiPage</name>
 	</types>
 	<types>
@@ -145,10 +144,6 @@
 		<members>MZ_Microz_ReportFolder/MZ_Report_ItemByCategoryAndStyle</members>
 		<members>MZ_Microz_ReportFolder/MZ_Report_ItemByColor</members>
 		<name>Report</name>
-	</types>
-	<types>
-		<members>MZ_Item_ReportType</members>
-		<name>ReportType</name>
 	</types>
 	<version>62.0</version>
 </Package>
