@@ -14,7 +14,7 @@ export default class ItemModal extends LightningModal {
     }
 
     async handleDeleteItem() {
-        const retUrl = 'lightning/n/MZ_SearchItem_Tab';
+        const retUrl = '/lightning/n/MZ_SearchItem_Tab';
         const recordId = this.item.Id;
         const dialog = window.confirm('このアイテムの削除を実行しますか?');
 

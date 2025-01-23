@@ -2,6 +2,8 @@ import { LightningElement, wire } from 'lwc';
 import { NavigationMixin } from "lightning/navigation";
 import getItems from '@salesforce/apex/ItemController.getItems';
 import ItemModal from 'c/itemModal';
+import ItemCreateModal from 'c/itemCreateModal';
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import PURCHASEDATE_FIELD from '@salesforce/schema/MZ_Item__c.MZ_PurchaseDate__c';
 import PURCHASEPRICE_FIELD from '@salesforce/schema/MZ_Item__c.MZ_PurchasePrice__c';
 
@@ -45,6 +47,23 @@ export default class ItemList extends NavigationMixin(LightningElement) {
         });
     }
 
+    async handleOpenItemCreateModal() {
+        const result = await ItemCreateModal.open({
+            size: 'large'
+        });
+        if(result == 'OK') {     
+            const retUrl = '/lightning/n/MZ_SearchItem_Tab';      
+            this.dispatchEvent(
+                new ShowToastEvent({
+                    title: 'Success',
+                    message: 'アイテムが登録されました',
+                    variant: 'success'
+                })
+            );
+            setTimeout(() => { window.location.href = retUrl; }, 500);
+        }
+    }
+
     handleSortKeyChange(event) {
         const sortCondition = JSON.parse(event.detail.value);
         this.sortKey = sortCondition.key;
@@ -69,10 +88,10 @@ export default class ItemList extends NavigationMixin(LightningElement) {
         this.searchKey = '';
     }
 
-    handleCreateItem() {
-        const flowApiName = 'MZ_FL_CreateItem'; 
-        const retUrl = 'lightning/n/MZ_SearchItem_Tab'; 
-        const flowUrl = `/flow/${flowApiName}?retURL=${retUrl}`;
-        window.location.href = flowUrl;
-    }
+    // handleCreateItem() {
+    //     const flowApiName = 'MZ_FL_CreateItem'; 
+    //     const retUrl = '/lightning/n/MZ_SearchItem_Tab'; 
+    //     const flowUrl = `/flow/${flowApiName}?retURL=${retUrl}`;
+    //     window.location.href = flowUrl;
+    // }
 }
