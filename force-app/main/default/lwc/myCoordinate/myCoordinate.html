@@ -3,7 +3,7 @@
         <lightning-layout-item padding="around-small" size="12" medium-device-size="5" large-device-size="3">
             <lightning-card title="選択アイテム" icon-name="utility:standard_objects">
                 <template lwc:if={item.data}>
-                    <c-view-item item={item.data.fields} onselectitem={handleSelectItem}></c-view-item>
+                    <c-view-item item={item.data.fields} season={season} onselectitem={handleSelectItem}></c-view-item>
                 </template>
                 <template lwc:else>
                     <div class="slds-box slds-m-around_medium slds-align_absolute-center" style={noItem}>
