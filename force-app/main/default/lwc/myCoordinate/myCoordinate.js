@@ -146,7 +146,11 @@ export default class MyCoordinate extends NavigationMixin(LightningElement) {
         const result = await ItemSelectModal.open({
             size: 'large'
         });
-        this.recordId = result;
+        if(result != undefined) {
+            this.recordId = result;
+        } else {
+            this.recordId = '';
+        }
     }
 
     handleSeasonChange(event) {
