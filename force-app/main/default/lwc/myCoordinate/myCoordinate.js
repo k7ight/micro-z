@@ -5,6 +5,7 @@ import { getRecord } from 'lightning/uiRecordApi';
 import getMyCoordinates from '@salesforce/apex/ItemController.getMyCoordinates'
 import deleteMyCoordinates from '@salesforce/apex/ItemController.deleteMyCoordinates';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+import ItemSelectModal from 'c/itemSelectModal';
 import CATEGORY_FIELD from '@salesforce/schema/MZ_Item__c.MZ_Category__c';
 import SUBCATEGORY_FIELD from '@salesforce/schema/MZ_Item__c.MZ_SubCategory__c';
 import SEASON_FIELD from '@salesforce/schema/MZ_Item__c.MZ_Season__c';
@@ -18,6 +19,12 @@ export default class MyCoordinate extends NavigationMixin(LightningElement) {
     recordId;
     season;
     selectedCoordinates = [];
+    seasonOptions = [
+        { label: '春', value: '春' },
+        { label: '夏', value: '夏' },
+        { label: '秋', value: '秋' },
+        { label: '冬', value: '冬' }
+    ];
  
     @wire(CurrentPageReference)
     getPageReference(pageRef) {
@@ -35,6 +42,12 @@ export default class MyCoordinate extends NavigationMixin(LightningElement) {
         season: '$season'
     })
     myCoordinates;
+
+    connectedCallback() {
+        if(this.recordId == undefined) {
+            this.recordId = '';
+        }
+    }
 
     get ExistMyCoordinates() {
         return this.myCoordinates.data && this.myCoordinates.data.length > 0;
@@ -56,8 +69,6 @@ export default class MyCoordinate extends NavigationMixin(LightningElement) {
     }
 
     async handleDeleteMyCoordinates() {
-        // const coordinateComp = this.template.querySelectorAll('c-coordinate')
-
         if(this.selectedCoordinates.length == 0) {
             alert('削除対象コーデを選択してください。');
             return;
@@ -77,10 +88,7 @@ export default class MyCoordinate extends NavigationMixin(LightningElement) {
                     variant: 'success'
                 })
             );
-            // coordinateComp.forEach((child) => {
-            //     child.isChecked = false;
-            // });
-            // this.selectedCoordinates = [];
+
             const retUrl = `lightning/n/MZ_MyCoordinate_Tab/?c__recordId=${this.recordId}`;
             setTimeout(() => { window.location.href = retUrl; }, 500);
 
@@ -118,8 +126,30 @@ export default class MyCoordinate extends NavigationMixin(LightningElement) {
         this[NavigationMixin.Navigate](pageRef);
     }
 
-    handleSeasonClear() {
+    handleItemClear() {
+        this.recordId = '';
+        this.item.data = undefined;
         this.season = '';
         this.template.querySelector('c-view-item').season = '';
+    }
+
+    get noItem() {
+        return `
+            background-color: #EEEEEE;
+            background-size: cover; 
+            background-position: center;
+            aspect-ratio: 1;
+        `;
+    }
+
+    async handleOpenModal() {
+        const result = await ItemSelectModal.open({
+            size: 'large'
+        });
+        this.recordId = result;
+    }
+
+    handleSeasonChange(event) {
+        this.season = event.detail.value;
     }
 }

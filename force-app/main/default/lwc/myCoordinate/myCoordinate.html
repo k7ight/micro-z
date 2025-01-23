@@ -4,12 +4,22 @@
             <lightning-card title="選択アイテム" icon-name="utility:standard_objects">
                 <template lwc:if={item.data}>
                     <c-view-item item={item.data.fields} onselectitem={handleSelectItem}></c-view-item>
-                    <div class="slds-align_absolute-center">
-                        <lightning-button variant="brand" label="クリア" icon-name="utility:refresh"
-                            class="slds-m-top_medium" onclick={handleSeasonClear}>
+                </template>
+                <template lwc:else>
+                    <div class="slds-box slds-m-around_medium slds-align_absolute-center" style={noItem}>
+                        <lightning-button variant="brand" label="アイテム選択" icon-name="utility:undeprecate"
+                            onclick={handleOpenModal}>
                         </lightning-button>
                     </div>
+                    <lightning-combobox name="season" label="対象シーズン" value={season} placeholder="シーズンを選択"
+                        options={seasonOptions} onchange={handleSeasonChange} class="slds-m-around_small">
+                    </lightning-combobox>
                 </template>
+                <div class="slds-align_absolute-center">
+                    <lightning-button variant="brand" label="クリア" icon-name="utility:refresh"
+                        class="slds-m-top_medium" onclick={handleItemClear}>
+                    </lightning-button>
+                </div>
             </lightning-card>
         </lightning-layout-item>
         <lightning-layout-item padding="around-small" size="12" medium-device-size="7" large-device-size="9">
@@ -37,7 +47,7 @@
                     </lightning-layout>
                 </template>
                 <template lwc:else>
-                    <div class="slds-text-heading_small slds-text-color_destructive slds-m-vertical_xx-large slds-align_absolute-center">
+                    <div class="slds-text-heading_small slds-m-vertical_xx-large slds-align_absolute-center">
                         <strong>対象のマイコーデは未登録です。</strong>
                     </div>
                 </template>

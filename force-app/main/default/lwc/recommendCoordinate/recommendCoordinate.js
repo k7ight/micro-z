@@ -138,7 +138,7 @@ export default class RecommendCoordinate extends NavigationMixin(LightningElemen
 
     get noItem() {
         return `
-            background-color: #DDDDDD;
+            background-color: #EEEEEE;
             background-size: cover; 
             background-position: center;
             aspect-ratio: 1;
